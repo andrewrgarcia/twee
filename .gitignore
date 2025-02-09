@@ -1,6 +1,8 @@
 twee
 *.o 
 
-# showfileshere
+.git 
+
+# show files 
 show.txt
 *FilesHere*
