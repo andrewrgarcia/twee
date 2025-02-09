@@ -17,8 +17,10 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-L") == 0 && i + 1 < argc) {
             config->max_depth = atoi(argv[++i]);
-        } else if (strcmp(argv[i], "--ignore") == 0 && i + 1 < argc) {
-            (*ignore_patterns)[(*ignore_count)++] = strdup(argv[++i]);
+        } else if (strcmp(argv[i], "--ignore") == 0) {
+            while (i + 1 < argc && argv[i + 1][0] != '-') { // Process until a new flag appears
+                (*ignore_patterns)[(*ignore_count)++] = strdup(argv[++i]);
+            }
         } else if (strcmp(argv[i], "--no-emoji") == 0) {
             config->use_emoji = false;
         } else if (strcmp(argv[i], "--details") == 0) {
