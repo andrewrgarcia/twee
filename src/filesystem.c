@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <time.h>
 
-void compare_directories(const char *path1, const char *path2) {
+void compare_directories(const char *path1, const char *path2, int depth) {
     DIR *dir1 = opendir(path1);
     DIR *dir2 = opendir(path2);
 
@@ -20,7 +20,6 @@ void compare_directories(const char *path1, const char *path2) {
 
     struct dirent *entry;
     struct stat stat1, stat2;
-    
     // Scan first directory
     while ((entry = readdir(dir1)) != NULL) {
         if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
@@ -33,13 +32,19 @@ void compare_directories(const char *path1, const char *path2) {
 
         if (stat(file1, &stat1) == 0) {
             if (stat(file2, &stat2) != 0) {
+                for (int i = 0; i < depth; i++) printf("│   ");
                 printf("📂 Only in %s: %s\n", path1, entry->d_name);
             } else if (stat1.st_size != stat2.st_size) {
+                for (int i = 0; i < depth; i++) printf("│   ");
                 printf("⚠️ Differing files: %s\n", entry->d_name);
+            }
+
+            // Recursive Call for Directories
+            if (S_ISDIR(stat1.st_mode)) {
+                compare_directories(file1, file2, depth + 1);
             }
         }
     }
-    
     closedir(dir1);
 
     // Scan second directory for missing files in first
@@ -53,12 +58,14 @@ void compare_directories(const char *path1, const char *path2) {
         snprintf(file2, sizeof(file2), "%s/%s", path2, entry->d_name);
 
         if (stat(file1, &stat1) != 0) {
+            for (int i = 0; i < depth; i++) printf("│   ");
             printf("📂 Only in %s: %s\n", path2, entry->d_name);
         }
     }
-    
+
     closedir(dir2);
 }
+
 
 void list_directory(const char *base_path, int depth, const Config *config, char **ignore_patterns, int ignore_count) {
     if (config->max_depth >= 0 && depth > config->max_depth) return;
