@@ -2,28 +2,35 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -g
+CFLAGS = -Wall -Wextra -g -Iinclude
 
-# Source files
-SRCS = main.c config.c filesystem.c display.c ignore_handler.c
+# Directories
+SRC_DIR = src
+BUILD_DIR = build
+INCLUDE_DIR = include
 
-# Object files (Replace .c with .o)
-OBJS = $(SRCS:.c=.o)
+# Find all source files in src/
+SRCS = $(wildcard $(SRC_DIR)/*.c)
+
+# Convert each .c file in src/ to a corresponding .o file in build/
+OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 
 # Executable name
-TARGET = twee
+TARGET = $(BUILD_DIR)/twee
 
 # Default rule: Compile everything
 all: $(TARGET)
 
-# Link object files to create the executable
+# Link object files to create the final executable
 $(TARGET): $(OBJS)
+	@mkdir -p $(BUILD_DIR)  # Ensure build/ exists
 	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET)
 
-# Compile individual .c files into .o files
-%.o: %.c
+# Compile each .c file into an .o file inside build/
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
+	@mkdir -p $(BUILD_DIR)  # Ensure build/ exists
 	$(CC) $(CFLAGS) -c $< -o $@
 
 # Clean compiled files
 clean:
-	rm -f $(OBJS) $(TARGET)
+	rm -rf $(BUILD_DIR)
