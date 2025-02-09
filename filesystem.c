@@ -9,10 +9,59 @@
 #include <unistd.h>
 #include <time.h>
 
+void compare_directories(const char *path1, const char *path2) {
+    DIR *dir1 = opendir(path1);
+    DIR *dir2 = opendir(path2);
+
+    if (!dir1 || !dir2) {
+        perror("Error opening directories");
+        return;
+    }
+
+    struct dirent *entry;
+    struct stat stat1, stat2;
+    
+    // Scan first directory
+    while ((entry = readdir(dir1)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        char file1[1024], file2[1024];
+        snprintf(file1, sizeof(file1), "%s/%s", path1, entry->d_name);
+        snprintf(file2, sizeof(file2), "%s/%s", path2, entry->d_name);
+
+        if (stat(file1, &stat1) == 0) {
+            if (stat(file2, &stat2) != 0) {
+                printf("📂 Only in %s: %s\n", path1, entry->d_name);
+            } else if (stat1.st_size != stat2.st_size) {
+                printf("⚠️ Differing files: %s\n", entry->d_name);
+            }
+        }
+    }
+    
+    closedir(dir1);
+
+    // Scan second directory for missing files in first
+    while ((entry = readdir(dir2)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        char file1[1024], file2[1024];
+        snprintf(file1, sizeof(file1), "%s/%s", path1, entry->d_name);
+        snprintf(file2, sizeof(file2), "%s/%s", path2, entry->d_name);
+
+        if (stat(file1, &stat1) != 0) {
+            printf("📂 Only in %s: %s\n", path2, entry->d_name);
+        }
+    }
+    
+    closedir(dir2);
+}
+
 void list_directory(const char *base_path, int depth, const Config *config, char **ignore_patterns, int ignore_count) {
     if (config->max_depth >= 0 && depth > config->max_depth) return;
-
-    printf("DEBUG: Entering directory: %s\n", base_path);  // ADD THIS LINE
     
     DIR *dir = opendir(base_path);
     if (!dir) {
@@ -43,7 +92,9 @@ void list_directory(const char *base_path, int depth, const Config *config, char
 
         if (config->show_details) {
             printf(" [Size: %lld bytes]", (long long) path_stat.st_size);
-            struct tm *mod_time = localtime(&path_stat.st_mtime);
+            time_t mod_time_raw = path_stat.st_mtime;
+            struct tm *mod_time = localtime(&mod_time_raw);
+
             char time_str[20];
             strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", mod_time);
             printf(" [Modified: %s]", time_str);
