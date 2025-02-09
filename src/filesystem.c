@@ -21,8 +21,8 @@ void compare_files(const char *file1, const char *file2, int depth) {
     char line1[1024], line2[1024];
     int line_num = 1;
     int differences_found = 0;
-    
-    printf("\n");  // 🔹 Ensure proper separation from directory tree
+
+    printf("\n");  // 🔹 Ensure separation before file comparison output
 
     while (1) {
         char *res1 = fgets(line1, sizeof(line1), f1);
@@ -30,24 +30,23 @@ void compare_files(const char *file1, const char *file2, int depth) {
 
         if (!res1 && !res2) break;  // Both files ended
 
-        // 🔹 Print indentation to align with the tree structure
+        // 🔹 Print indentation aligned with tree
         for (int i = 0; i < depth + 1; i++) printf("│   ");
 
         if (!res1) {
-            printf("\033[32m+ Line %d: %s\033[0m", line_num, line2);  // Green
+            printf("\033[32m+ Line %d: %s\033[0m", line_num, line2);  // Green (File 2 extra lines)
             differences_found++;
         } else if (!res2) {
-            printf("\033[31m- Line %d: %s\033[0m", line_num, line1);  // Red
+            printf("\033[31m- Line %d: %s\033[0m", line_num, line1);  // Red (File 1 extra lines)
             differences_found++;
         } else if (strcmp(line1, line2) != 0) {
             printf("⚠️ Difference at line %d:\n", line_num);
 
-            // 🔹 Print indentation before each modified line
-            for (int i = 0; i < depth + 1; i++) printf("│   ");
-            printf("\033[31m- %s\033[0m", line1);  // Red
+            for (int i = 0; i < depth + 2; i++) printf("│   ");  // Correctly indent line diffs
+            printf("\033[31m- %s\033[0m", line1);  // Red (removed line)
 
-            for (int i = 0; i < depth + 1; i++) printf("│   ");
-            printf("\033[32m+ %s\033[0m", line2);  // Green
+            for (int i = 0; i < depth + 2; i++) printf("│   ");
+            printf("\033[32m+ %s\033[0m\n", line2);  // Green (added line)
 
             differences_found++;
         }
@@ -62,7 +61,7 @@ void compare_files(const char *file1, const char *file2, int depth) {
         printf("✅ No content differences found.\n");
     }
 
-    printf("\n");  // 🔹 Ensure separation from the next directory output
+    printf("\n");  // 🔹 Ensure spacing before the next directory entry
 }
 
 void compare_structure(const char *path1, const char *path2, int depth, bool compare_contents) {
@@ -94,12 +93,14 @@ void compare_structure(const char *path1, const char *path2, int depth, bool com
                     for (int i = 0; i < depth; i++) printf("│   ");
                     printf("⚠️ Differing files: %s (size mismatch)\n", entry->d_name);
                 } 
-                // 🔥 Only compare contents when `compare_contents == true`
+                // Only compare contents when `compare_contents == true`
                 if (compare_contents) {
                     for (int i = 0; i < depth; i++) printf("│   ");
                     printf("🔍 Comparing content of: %s\n", entry->d_name);
-                    compare_files(file1, file2, depth);
+                    
+                    compare_files(file1, file2, depth); 
                 }
+
 
             } 
             
