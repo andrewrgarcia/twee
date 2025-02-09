@@ -7,7 +7,7 @@ typedef struct {
     bool use_emoji;
     bool show_details;
     bool use_gitignore;
-    bool use_tree;   // New flag for tree mode
+    bool use_tree;
     int max_depth;
 } Config;
 

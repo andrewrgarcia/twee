@@ -9,7 +9,40 @@
 #include <unistd.h>
 #include <time.h>
 
-void compare_directories(const char *path1, const char *path2, int depth) {
+void compare_files(const char *file1, const char *file2) {
+    FILE *f1 = fopen(file1, "r");
+    FILE *f2 = fopen(file2, "r");
+
+    if (!f1 || !f2) {
+        perror("Error opening file");
+        return;
+    }
+
+    char line1[1024], line2[1024];
+    int line_num = 1;
+    
+    while (fgets(line1, sizeof(line1), f1) && fgets(line2, sizeof(line2), f2)) {
+        if (strcmp(line1, line2) != 0) {
+            printf("⚠️ Difference at line %d:\n", line_num);
+            printf("- %s", line1);
+            printf("+ %s\n", line2);
+        }
+        line_num++;
+    }
+
+    // Handle remaining lines in either file
+    while (fgets(line1, sizeof(line1), f1)) {
+        printf("- %s", line1);
+    }
+    while (fgets(line2, sizeof(line2), f2)) {
+        printf("+ %s", line2);
+    }
+
+    fclose(f1);
+    fclose(f2);
+}
+
+void compare_structure(const char *path1, const char *path2, int depth) {
     DIR *dir1 = opendir(path1);
     DIR *dir2 = opendir(path2);
 
@@ -30,20 +63,25 @@ void compare_directories(const char *path1, const char *path2, int depth) {
         snprintf(file1, sizeof(file1), "%s/%s", path1, entry->d_name);
         snprintf(file2, sizeof(file2), "%s/%s", path2, entry->d_name);
 
-        if (stat(file1, &stat1) == 0) {
-            if (stat(file2, &stat2) != 0) {
-                for (int i = 0; i < depth; i++) printf("│   ");
-                printf("📂 Only in %s: %s\n", path1, entry->d_name);
-            } else if (stat1.st_size != stat2.st_size) {
-                for (int i = 0; i < depth; i++) printf("│   ");
-                printf("⚠️ Differing files: %s\n", entry->d_name);
-            }
-
-            // Recursive Call for Directories
-            if (S_ISDIR(stat1.st_mode)) {
-                compare_directories(file1, file2, depth + 1);
-            }
+    if (stat(file1, &stat1) == 0) {
+        if (stat(file2, &stat2) != 0) {
+            for (int i = 0; i < depth; i++) printf("│   ");
+            printf("📂 Only in %s: %s\n", path1, entry->d_name);
+        } else if (stat1.st_size != stat2.st_size) {
+            for (int i = 0; i < depth; i++) printf("│   ");
+            printf("⚠️ Differing files: %s (size mismatch)\n", entry->d_name);
+        } else {
+            for (int i = 0; i < depth; i++) printf("│   ");
+            printf("🔍 Comparing content of: %s\n", entry->d_name);
+            compare_files(file1, file2);  // Calls line-by-line comparison
         }
+
+        // Recursive Call for Directories
+        if (S_ISDIR(stat1.st_mode)) {
+            compare_structure(file1, file2, depth + 1);
+        }
+    }
+
     }
     closedir(dir1);
 
