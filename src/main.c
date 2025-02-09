@@ -14,12 +14,12 @@ int main(int argc, char *argv[]) {
     int ignore_count = 0;
     
     if (argc == 4 && strcmp(argv[1], "--dif") == 0) {
-        compare_structure(argv[2], argv[3], 0);  // Structure-only comparison
+        compare_structure(argv[2], argv[3], 0, false);  // Structure-only comparison
         return 0;
     }
 
     if (argc == 4 && strcmp(argv[1], "--diff") == 0) {
-        compare_structure(argv[2], argv[3], 0);  // First, check structure
+        compare_structure(argv[2], argv[3], 0, true);  // Full comparison including file contents
         return 0;
     }
 

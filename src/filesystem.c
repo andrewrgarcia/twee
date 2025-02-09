@@ -9,7 +9,7 @@
 #include <unistd.h>
 #include <time.h>
 
-void compare_files(const char *file1, const char *file2) {
+void compare_files(const char *file1, const char *file2, int depth) {
     FILE *f1 = fopen(file1, "r");
     FILE *f2 = fopen(file2, "r");
 
@@ -22,22 +22,33 @@ void compare_files(const char *file1, const char *file2) {
     int line_num = 1;
     int differences_found = 0;
     
+    printf("\n");  // 🔹 Ensure proper separation from directory tree
+
     while (1) {
         char *res1 = fgets(line1, sizeof(line1), f1);
         char *res2 = fgets(line2, sizeof(line2), f2);
 
         if (!res1 && !res2) break;  // Both files ended
 
+        // 🔹 Print indentation to align with the tree structure
+        for (int i = 0; i < depth + 1; i++) printf("│   ");
+
         if (!res1) {
-            printf("  + Line %d: %s", line_num, line2);  // Line exists only in file2
+            printf("\033[32m+ Line %d: %s\033[0m", line_num, line2);  // Green
             differences_found++;
         } else if (!res2) {
-            printf("  - Line %d: %s", line_num, line1);  // Line exists only in file1
+            printf("\033[31m- Line %d: %s\033[0m", line_num, line1);  // Red
             differences_found++;
         } else if (strcmp(line1, line2) != 0) {
-            printf("  ⚠️ Difference at line %d:\n", line_num);
-            printf("  - %s", line1);
-            printf("  + %s", line2);
+            printf("⚠️ Difference at line %d:\n", line_num);
+
+            // 🔹 Print indentation before each modified line
+            for (int i = 0; i < depth + 1; i++) printf("│   ");
+            printf("\033[31m- %s\033[0m", line1);  // Red
+
+            for (int i = 0; i < depth + 1; i++) printf("│   ");
+            printf("\033[32m+ %s\033[0m", line2);  // Green
+
             differences_found++;
         }
         line_num++;
@@ -47,11 +58,14 @@ void compare_files(const char *file1, const char *file2) {
     fclose(f2);
 
     if (differences_found == 0) {
-        printf("  ✅ No content differences found.\n");
+        for (int i = 0; i < depth + 1; i++) printf("│   ");
+        printf("✅ No content differences found.\n");
     }
+
+    printf("\n");  // 🔹 Ensure separation from the next directory output
 }
 
-void compare_structure(const char *path1, const char *path2, int depth) {
+void compare_structure(const char *path1, const char *path2, int depth, bool compare_contents) {
     DIR *dir1 = opendir(path1);
     DIR *dir2 = opendir(path2);
 
@@ -63,7 +77,7 @@ void compare_structure(const char *path1, const char *path2, int depth) {
     struct dirent *entry;
     struct stat stat1, stat2;
 
-    // 🔹 First, scan through directory 1
+    // 🔹 Scan through directory 1
     while ((entry = readdir(dir1)) != NULL) {
         if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) continue;
 
@@ -80,23 +94,26 @@ void compare_structure(const char *path1, const char *path2, int depth) {
                     for (int i = 0; i < depth; i++) printf("│   ");
                     printf("⚠️ Differing files: %s (size mismatch)\n", entry->d_name);
                 } 
-                // 🔥 FIX: Now actually compare contents
-                for (int i = 0; i < depth; i++) printf("│   ");
-                printf("🔍 Comparing content of: %s\n", entry->d_name);
-                compare_files(file1, file2);
+                // 🔥 Only compare contents when `compare_contents == true`
+                if (compare_contents) {
+                    for (int i = 0; i < depth; i++) printf("│   ");
+                    printf("🔍 Comparing content of: %s\n", entry->d_name);
+                    compare_files(file1, file2, depth);
+                }
+
             } 
             
             // 🔹 Ensure directories are compared recursively
             if (S_ISDIR(stat1.st_mode)) {
                 for (int i = 0; i < depth; i++) printf("│   ");
                 printf("📂 Entering directory: %s\n", entry->d_name);
-                compare_structure(file1, file2, depth + 1);
+                compare_structure(file1, file2, depth + 1, compare_contents);
             }
         }
     }
     closedir(dir1);
 
-    // 🔹 Now scan directory 2 for files missing in directory 1
+    // 🔹 Scan directory 2 for files missing in directory 1
     while ((entry = readdir(dir2)) != NULL) {
         if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) continue;
 
