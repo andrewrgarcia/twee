@@ -1,1 +1,6 @@
 twee
+*.o 
+
+# showfileshere
+show.txt
+*FilesHere*
