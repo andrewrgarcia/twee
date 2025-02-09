@@ -7,11 +7,12 @@ void init_config(Config *config) {
     config->use_emoji = true;
     config->show_details = false;
     config->use_gitignore = true;
+    config->use_tree = true;
     config->max_depth = -1;
 }
 
 void parse_arguments(int argc, char *argv[], Config *config, char **directory, char ***ignore_patterns, int *ignore_count) {
-    *ignore_patterns = malloc(10 * sizeof(char*));  // Allocate space for ignore patterns
+    *ignore_patterns = malloc(10 * sizeof(char*));
 
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-L") == 0 && i + 1 < argc) {
@@ -24,6 +25,8 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
             config->show_details = true;
         } else if (strcmp(argv[i], "--no-git") == 0) {
             config->use_gitignore = false;
+        } else if (strcmp(argv[i], "--flat") == 0) {
+            config->use_tree = false;   // Disable tree mode if user requests flat listing
         } else {
             *directory = argv[i];
         }

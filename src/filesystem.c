@@ -62,7 +62,7 @@ void compare_directories(const char *path1, const char *path2) {
 
 void list_directory(const char *base_path, int depth, const Config *config, char **ignore_patterns, int ignore_count) {
     if (config->max_depth >= 0 && depth > config->max_depth) return;
-    
+
     DIR *dir = opendir(base_path);
     if (!dir) {
         perror("Error opening directory");
@@ -87,17 +87,20 @@ void list_directory(const char *base_path, int depth, const Config *config, char
 
         bool is_directory = S_ISDIR(path_stat.st_mode);
         
-        for (int i = 0; i < depth; i++) printf("  ");
+        // Print indentation for tree mode
+        if (config->use_tree) {
+            for (int i = 0; i < depth; i++) printf("│   ");
+            printf("├── ");
+        }
+
         printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
 
         if (config->show_details) {
-            printf(" [Size: %lld bytes]", (long long) path_stat.st_size);
             time_t mod_time_raw = path_stat.st_mtime;
             struct tm *mod_time = localtime(&mod_time_raw);
-
             char time_str[20];
             strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", mod_time);
-            printf(" [Modified: %s]", time_str);
+            printf(" [Size: %lld bytes] [Modified: %s]", (long long) path_stat.st_size, time_str);
         }
         printf("\n");
 

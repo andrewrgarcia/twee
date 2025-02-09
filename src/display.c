@@ -11,5 +11,6 @@ const char* get_type_icon(const char *filename, bool is_directory, const Config 
     if (strstr(filename, ".jpg") || strstr(filename, ".png") || strstr(filename, ".svg")) return "🖼";
     if (strstr(filename, ".mp4") || strstr(filename, ".mov")) return "🎥";
     if (strstr(filename, ".mp3") || strstr(filename, ".wav")) return "🎵";
+    if (strstr(filename, ".rs")) return "🦀";
     return "📄";
 }
