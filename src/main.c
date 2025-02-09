@@ -23,8 +23,6 @@ int main(int argc, char *argv[]) {
         return 0;
     }
 
-
-
     parse_arguments(argc, argv, &config, &directory, &ignore_patterns, &ignore_count);
 
     if (config.use_gitignore) {
