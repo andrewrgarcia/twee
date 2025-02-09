@@ -13,10 +13,11 @@ int main(int argc, char *argv[]) {
     char **ignore_patterns = NULL;
     int ignore_count = 0;
     
-    if (argc == 4 && strcmp(argv[1], "--diff") == 0) {
-        compare_directories(argv[2], argv[3], 0);  // Start recursion @ depth 0
+    if (argc == 4 && strcmp(argv[1], "--dif") == 0) {
+        compare_directories(argv[2], argv[3], 0);
         return 0;
     }
+
 
     parse_arguments(argc, argv, &config, &directory, &ignore_patterns, &ignore_count);
 
