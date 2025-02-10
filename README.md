@@ -1,24 +1,25 @@
 # 🌳 Twee - A Modern Tree Viewer with File Comparison
 
-Twee is a fast and feature-rich alternative to `tree`, with built-in **file comparison**, **.gitignore awareness**, and **emoji-based visualization**. Unlike `exa --tree`, Twee **always** respects `.gitignore`, ensuring accurate directory views.
+Twee is a fast and feature-rich alternative to `tree`, with built-in **file comparison**, **.gitignore awareness**, and **emoji-based visualization**. Unlike `exa --tree`, Twee **always** respects `.gitignore`, ensuring accurate directory views. Like `git`, Twee is **written in C** for performance and usability.
 
 ## 🚀 Features
 
-| Feature               | `twee` | `tree` | `exa --tree` |
-|----------------------|--------|--------|-------------|
-| **Directory Tree View** | ✅ Yes | ✅ Yes | ✅ Yes |
-| **File Size & Metadata** | ✅ Yes (`--details`) | ❌ No | ✅ Yes |
-| **Gitignore Awareness** | ✅ Always | ❌ No | ⚠️ Maybe (depends on build) |
-| **File Differences (`--dif`)** | ✅ Yes | ❌ No | ❌ No |
-| **File Content Diff (`--diff`)** | ✅ Yes | ❌ No | ❌ No |
-| **Emoji Representation** | ✅ Yes | ❌ No | ❌ No |
-| **Flat View (`--flat`)** | ✅ Yes | ❌ No | ❌ No |
+| Feature                                     | `twee` | `tree` | `exa --tree` |
+|---------------------------------------------|--------|--------|--------------|
+| **Directory Tree View**                     | ✅ Yes | ✅ Yes | ✅ Yes |
+| **File Size & Metadata**                    | ✅ Yes (`--details`) | ❌ No | ✅ Yes |
+| **Gitignore Awareness**                     | ✅ Always | ❌ No | ⚠️ Maybe (depends on build) |
+| **Git-Like File Differences (`--diff`)**    | ✅ Yes | ❌ No | ❌ No |
+| **Emoji Representation**                    | ✅ Yes | ❌ No | ❌ No |
+| **Flat View (`--flat`)**                    | ✅ Yes | ❌ No | ❌ No |
+| **Written in C for Speed**                  | ✅ Yes | ❌ No | ❌ No |
 
 ---
 
-## 📦 Installation
+## 📚 Installation
 
 ### Linux & macOS
+
 ```sh
 # Clone repository
 git clone https://github.com/YOUR_USERNAME/twee.git
@@ -32,6 +33,7 @@ sudo mv build/twee /usr/local/bin/twee
 ```
 
 ### Windows (via MinGW or WSL)
+
 ```sh
 git clone https://github.com/YOUR_USERNAME/twee.git
 cd twee
@@ -42,22 +44,25 @@ make
 ---
 
 ## 🌍 Global Usage
+
 To make `twee` available globally, add it to your shell configuration:
 
 **Linux/macOS** (Add to `.bashrc` or `.zshrc`)
+
 ```sh
 echo 'export PATH="$HOME/twee/build:$PATH"' >> ~/.bashrc  # or ~/.zshrc
 source ~/.bashrc
 ```
 
 **Windows (PowerShell)**
+
 ```powershell
 [System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\\path\\to\\twee", [System.EnvironmentVariableTarget]::User)
 ```
 
 ---
 
-## 📖 Usage Guide
+## 📚 Usage Guide
 
 ```sh
 Usage: twee [options] [directory]
@@ -75,6 +80,7 @@ Options:
 ```
 
 ### Examples:
+
 ```sh
 # Show tree of current directory
 twee
@@ -98,14 +104,17 @@ twee --diff dir1 dir2
 ---
 
 ## 🌟 Why Twee?
+
 Twee offers a **better user experience** with:
+
 - 🎨 **Beautiful output** with emoji-based file types
 - 🚀 **Fast execution**, even on large projects
 - 🛠️ **Built-in diffing capabilities**, replacing `diff -rq`
 - 🔥 **Always respects .gitignore**, unlike `exa --tree`
-- 💡 **Lightweight & simple**, no dependencies needed
+- 💡 **Lightweight & simple, no dependencies needed**
+- ⚡ **Written in C for speed**, ensuring optimal performance
 
-🔗 **GitHub Repository:** [github.com/YOUR_USERNAME/twee](https://github.com/YOUR_USERNAME/twee)
+🔗 **GitHub Repository:** [github.com/andrewrgarcia/twee](https://github.com/andrewrgarcia/twee)
 
 ✨ Star the repo if you like it! 🚀
 
