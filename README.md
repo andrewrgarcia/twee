@@ -14,6 +14,12 @@ Twee is a fast and feature-rich alternative to `tree`, with built-in **file comp
 | **Flat View (`--flat`)**                    | ✅ Yes | ❌ No | ❌ No |
 | **Written in C for Speed**                  | ✅ Yes | ❌ No | ❌ No |
 
+
+
+https://github.com/user-attachments/assets/71805947-5279-49db-bc53-4e7919e129ff
+
+
+
 ---
 
 ## 📚 Installation
