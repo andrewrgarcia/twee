@@ -2,6 +2,8 @@
 
 Twee is a fast and feature-rich alternative to `tree`, with built-in **file comparison**, **.gitignore awareness**, and **emoji-based visualization**. Unlike `exa --tree`, Twee **always** respects `.gitignore`, ensuring accurate directory views. Like `git`, Twee is **written in C** for performance and usability.
 
+https://github.com/user-attachments/assets/0720b9be-9588-472b-9391-9ba9768d7dbd
+
 ## 🚀 Features
 
 | Feature                                     | `twee` | `tree` | `exa --tree` |
@@ -13,11 +15,6 @@ Twee is a fast and feature-rich alternative to `tree`, with built-in **file comp
 | **Emoji Representation**                    | ✅ Yes | ❌ No | ❌ No |
 | **Flat View (`--flat`)**                    | ✅ Yes | ❌ No | ❌ No |
 | **Written in C for Speed**                  | ✅ Yes | ❌ No | ❌ No |
-
-
-
-https://github.com/user-attachments/assets/71805947-5279-49db-bc53-4e7919e129ff
-
 
 
 ---
