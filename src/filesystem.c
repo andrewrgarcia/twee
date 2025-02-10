@@ -9,6 +9,8 @@
 #include <unistd.h>
 #include <time.h>
 
+#define EXT_COLOR "\033[38;2;221;45;97m" 
+
 void compare_files(const char *file1, const char *file2, int depth) {
     FILE *f1 = fopen(file1, "r");
     FILE *f2 = fopen(file2, "r");
@@ -163,7 +165,18 @@ void list_directory(const char *base_path, int depth, const Config *config, char
             printf("├── ");
         }
 
-        printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
+        const char *reset = "\033[0m";
+        const char *ext = strrchr(entry->d_name, '.');
+
+        if (ext) {
+            printf("%s %.*s%s%s%s", 
+                get_type_icon(entry->d_name, is_directory, config), 
+                (int)(ext - entry->d_name), entry->d_name,  // Filename without extension
+                EXT_COLOR, ext, reset  // Apply color only to extension
+            );
+        } else {
+            printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
+        }
 
         if (config->show_details) {
             time_t mod_time_raw = path_stat.st_mtime;
