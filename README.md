@@ -50,7 +50,7 @@ To make `twee` available globally, add it to your shell configuration:
 **Linux/macOS** (Add to `.bashrc` or `.zshrc`)
 
 ```sh
-echo 'export PATH="$HOME/twee/build:$PATH"' >> ~/.bashrc  # or ~/.zshrc
+echo 'twee() { "$HOME/twee/build/twee" "$@"; }' >> ~/.bashrc
 source ~/.bashrc
 ```
 
