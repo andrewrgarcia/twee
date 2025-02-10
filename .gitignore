@@ -1,2 +1,9 @@
 twee
+*.o 
 
+.git 
+.vscode
+
+# show files 
+show.txt
+ShowFilesHere.sh
