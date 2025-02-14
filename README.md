@@ -1,6 +1,6 @@
 # 🌳 Twee - A Modern Tree Viewer with File Comparison
 
-Twee is a fast and feature-rich alternative to `tree`, with built-in **file comparison**, **.gitignore awareness**, and **emoji-based visualization**. Unlike `exa --tree`, Twee **always** respects `.gitignore`, ensuring accurate directory views. Like `git`, Twee is **written in C** for performance and usability.
+Twee is a fast and feature-rich alternative to `tree`, with built-in **file comparison**, **.gitignore awareness**, **file content previewing (`--show`)**, and **emoji-based visualization**. Unlike `exa --tree`, Twee **always** respects `.gitignore`, ensuring accurate directory views.
 
 ## 🚀 Features
 
@@ -9,7 +9,8 @@ Twee is a fast and feature-rich alternative to `tree`, with built-in **file comp
 | **Directory Tree View**                     | ✅ Yes | ✅ Yes | ✅ Yes |
 | **File Size & Metadata**                    | ✅ Yes (`--details`) | ❌ No | ✅ Yes |
 | **Gitignore Awareness**                     | ✅ Always | ❌ No | ⚠️ Maybe (depends on build) |
-| **Git-Like File Differences (`--diff`)**    | ✅ Yes | ❌ No | ❌ No |
+| **File Differences (`--diff`)**             | ✅ Yes | ❌ No | ✅ Yes |
+| **File Content Preview (`--show`)**         | ✅ Yes | ❌ No | ❌ No |
 | **Emoji Representation**                    | ✅ Yes | ❌ No | ❌ No |
 | **Flat View (`--flat`)**                    | ✅ Yes | ❌ No | ❌ No |
 | **Written in C for Speed**                  | ✅ Yes | ❌ No | ❌ No |
@@ -75,6 +76,9 @@ Options:
   --ignore <name>    Ignore file/directory by name (can be used multiple times)
   --no-git           Do not auto-ignore files listed in .gitignore
   --flat             Disable tree view (list as flat structure)
+  --show [exts]      Show contents of files with given extensions
+  --head <N>         Show only first N lines per file (used with --show)
+  --tail <N>         Show only last N lines per file (used with --show)
   --dif <dir1> <dir2>   Compare directory structures (existence-only)
   --diff <dir1> <dir2>  Compare directory structures AND file contents
 ```
@@ -99,6 +103,12 @@ twee --dif dir1 dir2
 
 # Compare structures AND file contents
 twee --diff dir1 dir2
+
+# Show contents of all `.py` and `.rs` files
+twee --show py rs
+
+# Show contents but limit output to first 10 lines per file
+twee --show py --head 10
 ```
 
 ---
@@ -111,7 +121,7 @@ Twee offers a **better user experience** with:
 - 🚀 **Fast execution**, even on large projects
 - 🛠️ **Built-in diffing capabilities**, replacing `diff -rq`
 - 🔥 **Always respects .gitignore**, unlike `exa --tree`
-- 💡 **Lightweight & simple, no dependencies needed**
+- 💡 **File Content Previewing**, useful for quick code inspection and development
 - ⚡ **Written in C for speed**, ensuring optimal performance
 
 🔗 **GitHub Repository:** [github.com/andrewrgarcia/twee](https://github.com/andrewrgarcia/twee)

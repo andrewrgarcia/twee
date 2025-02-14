@@ -9,8 +9,12 @@ typedef struct {
     bool use_gitignore;
     bool use_tree;
     int max_depth;
+    bool show_contents;
+    int head_lines;
+    int tail_lines;
+    char **show_extensions;
+    int num_show_extensions;
 } Config;
-
 
 void init_config(Config *config);
 void parse_arguments(int argc, char *argv[], Config *config, char **directory, char ***ignore_patterns, int *ignore_count);
