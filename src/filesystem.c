@@ -209,14 +209,19 @@ void list_directory(const char *base_path, int depth, const Config *config, char
         const char *ext = strrchr(entry->d_name, '.');
 
         if (ext) {
-            printf("%s %.*s%s%s%s", 
-                get_type_icon(entry->d_name, is_directory, config), 
-                (int)(ext - entry->d_name), entry->d_name,  // Filename without extension
-                EXT_COLOR, ext, reset  // Apply color only to extension
-            );
+            if (!config->show_contents) {  // Apply color only when NOT using --show
+                printf("%s %.*s%s%s%s", 
+                    get_type_icon(entry->d_name, is_directory, config), 
+                    (int)(ext - entry->d_name), entry->d_name,  // Filename without extension
+                    EXT_COLOR, ext, reset  // Apply color only to extension
+                );
+            } else {
+                printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
+            }
         } else {
             printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
         }
+
 
         // ✅ File details
         if (config->show_details) {
