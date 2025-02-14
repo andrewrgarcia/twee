@@ -66,12 +66,29 @@ int main(int argc, char *argv[]) {
     }
 
     printf("📂 Listing directory: %s\n", directory);
-    list_directory(directory, 0, &config, ignore_patterns, ignore_count);
 
+    // ✅ Store file paths for later content display
+    char **files = NULL;
+    int file_count = 0;
+
+    // ✅ First, list directories
+    list_directory(directory, 0, &config, ignore_patterns, ignore_count, &files, &file_count);
+
+    // ✅ Then, print file contents separately (if `--show` is enabled)
+    if (config.show_contents) {
+        show_file_contents(files, file_count, &config);
+    }
+
+    // ✅ Free dynamically allocated memory
     for (int i = 0; i < ignore_count; i++) {
         free(ignore_patterns[i]);
     }
     free(ignore_patterns);
+
+    for (int i = 0; i < file_count; i++) {
+        free(files[i]);
+    }
+    free(files);
 
     return 0;
 }

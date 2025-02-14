@@ -8,45 +8,46 @@
 #include <string.h>
 #include <unistd.h>
 #include <time.h>
+#include <stdbool.h>
 
 #define EXT_COLOR "\033[38;2;221;45;97m" 
 
-void show_file_contents(const char *filename, int depth, const Config *config) {
-    FILE *file = fopen(filename, "r");
-    if (!file) {
-        for (int i = 0; i < depth; i++) printf("│   ");
-        printf("❌ Error opening file: %s\n", filename);
-        return;
+void show_file_contents(char **files, int file_count, const Config *config) {
+    printf("\n===============================================\n\n");
+    for (int i = 0; i < file_count; i++) {
+        printf("<<< FILE START: %s >>>\n", files[i]);
+
+        FILE *file = fopen(files[i], "r");
+        if (!file) {
+            printf("❌ Error opening file: %s\n", files[i]);
+            continue;
+        }
+
+        char line[1024];
+        int line_num = 0;
+        int total_lines = 0;
+        int skip_lines = 0;
+        // Count total lines for tail processing
+        if (config->tail_lines > 0) {
+            while (fgets(line, sizeof(line), file)) total_lines++;
+            rewind(file);
+            skip_lines = total_lines - config->tail_lines;
+            if (skip_lines < 0) skip_lines = 0;
+        }
+
+        // Read & print file content with head/tail constraints
+        while (fgets(line, sizeof(line), file)) {
+            line_num++;
+            if (config->head_lines > 0 && line_num > config->head_lines) break;
+            if (config->tail_lines > 0 && line_num <= skip_lines) continue;
+
+            printf("%s", line);
+        }
+        fclose(file);
+
+        printf("<<< FILE END: %s >>>\n\n", files[i]);
+
     }
-
-    printf("<<< FILE START: %s >>>\n", filename);
-
-    char line[1024];
-    int line_num = 0;
-    int total_lines = 0;
-    int skip_lines = 0;
-
-    // Count total lines for tail processing
-    if (config->tail_lines > 0) {
-        while (fgets(line, sizeof(line), file)) total_lines++;
-        rewind(file);
-        skip_lines = total_lines - config->tail_lines;
-        if (skip_lines < 0) skip_lines = 0;
-    }
-
-    // Read & print file content
-    while (fgets(line, sizeof(line), file)) {
-        line_num++;
-        if (config->head_lines > 0 && line_num > config->head_lines) break;
-        if (config->tail_lines > 0 && line_num <= skip_lines) continue;
-
-        for (int i = 0; i < depth + 1; i++) printf("│   ");
-        printf("%s", line);
-    }
-
-    printf("<<< FILE END: %s >>>\n\n", filename);
-
-    fclose(file);
 }
 
 
@@ -171,7 +172,8 @@ void compare_structure(const char *path1, const char *path2, int depth, bool com
     closedir(dir2);
 }
 
-void list_directory(const char *base_path, int depth, const Config *config, char **ignore_patterns, int ignore_count) {
+void list_directory(const char *base_path, int depth, const Config *config, 
+                    char **ignore_patterns, int ignore_count, char ***files, int *file_count) {
     if (config->max_depth >= 0 && depth > config->max_depth) return;
 
     DIR *dir = opendir(base_path);
@@ -197,7 +199,7 @@ void list_directory(const char *base_path, int depth, const Config *config, char
         stat(path, &path_stat);
 
         bool is_directory = S_ISDIR(path_stat.st_mode);
-        
+
         // Print indentation for tree mode
         if (config->use_tree) {
             for (int i = 0; i < depth; i++) printf("│   ");
@@ -222,7 +224,6 @@ void list_directory(const char *base_path, int depth, const Config *config, char
             printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
         }
 
-
         // ✅ File details
         if (config->show_details) {
             time_t mod_time_raw = path_stat.st_mtime;
@@ -234,60 +235,25 @@ void list_directory(const char *base_path, int depth, const Config *config, char
 
         printf("\n");
 
-        // ✅ If it's a directory, recurse
-        if (is_directory) {
-            list_directory(path, depth + 1, config, ignore_patterns, ignore_count);
+        // ✅ Store file paths for later content display (if `--show` is enabled)
+        if (!is_directory && config->show_contents) {
+            bool should_show = (config->num_show_extensions == 0);  // Default to showing all if no filter is set
+            for (int i = 0; i < config->num_show_extensions; i++) {
+                if (ext && strcmp(ext + 1, config->show_extensions[i]) == 0) {
+                    should_show = true;
+                    break;
+                }
+            }
+            if (should_show) {
+                *files = realloc(*files, (*file_count + 1) * sizeof(char *));
+                (*files)[*file_count] = strdup(path);
+                (*file_count)++;
+            }
         }
 
-        // ✅ Handle file content previewing (`--show`)
-        if (!is_directory && config->show_contents) {
-            // Check if the file extension matches a specified one
-            bool should_show = false;
-            if (config->num_show_extensions == 0) {
-                should_show = true; // No filter means show all files
-            } else {
-                for (int i = 0; i < config->num_show_extensions; i++) {
-                    if (ext && strcmp(ext + 1, config->show_extensions[i]) == 0) { // +1 to skip dot
-                        should_show = true;
-                        break;
-                    }
-                }
-            }
-
-            if (should_show) {
-                // ✅ Read file contents with head/tail constraints
-                FILE *fp = fopen(path, "r");
-                if (fp) {
-                    printf("│   │   📄 Contents of %s:\n", entry->d_name);
-                    char line[1024];
-                    int line_num = 0;
-                    int total_lines = 0;
-                    int skip_lines = 0;
-
-                    // First, count total lines if tail is used
-                    if (config->tail_lines > 0) {
-                        while (fgets(line, sizeof(line), fp)) total_lines++;
-                        rewind(fp);
-                        skip_lines = total_lines - config->tail_lines;
-                        if (skip_lines < 0) skip_lines = 0;
-                    }
-
-                    // Read file again for output
-                    while (fgets(line, sizeof(line), fp)) {
-                        line_num++;
-                        if (config->head_lines > 0 && line_num > config->head_lines) break;
-                        if (config->tail_lines > 0 && line_num <= skip_lines) continue;
-
-                        for (int i = 0; i < depth + 2; i++) printf("│   ");
-                        printf(" %s", line);
-                    }
-
-                    fclose(fp);
-                } else {
-                    for (int i = 0; i < depth + 2; i++) printf("│   ");
-                    printf("❌ Cannot open file: %s\n", entry->d_name);
-                }
-            }
+        // ✅ If it's a directory, recurse
+        if (is_directory) {
+            list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
         }
     }
     closedir(dir);
