@@ -11,6 +11,7 @@
 #include <stdbool.h>
 
 #define EXT_COLOR "\033[38;2;221;45;97m" 
+#define MAX_LINES 2000
 
 void show_file_contents(char **files, int file_count, const Config *config) {
     printf("\n===============================================\n\n");
@@ -24,10 +25,10 @@ void show_file_contents(char **files, int file_count, const Config *config) {
         }
 
         char line[1024];
-        int line_num = 0;
+        int line_num = 1;
         int total_lines = 0;
         int skip_lines = 0;
-        // Count total lines for tail processing
+        // Count total lines if tail is used
         if (config->tail_lines > 0) {
             while (fgets(line, sizeof(line), file)) total_lines++;
             rewind(file);
@@ -35,13 +36,19 @@ void show_file_contents(char **files, int file_count, const Config *config) {
             if (skip_lines < 0) skip_lines = 0;
         }
 
-        // Read & print file content with head/tail constraints
+        // Read and print file content based on head/tail constraints
         while (fgets(line, sizeof(line), file)) {
-            line_num++;
+            if (config->tail_lines > 0 && line_num <= skip_lines) {
+                line_num++;
+                continue;
+            }
             if (config->head_lines > 0 && line_num > config->head_lines) break;
-            if (config->tail_lines > 0 && line_num <= skip_lines) continue;
-
+            if (line_num > MAX_LINES) {
+                printf("[Truncated at %d lines...]\n", MAX_LINES);
+                break;
+            }
             printf("%s", line);
+            line_num++;
         }
         fclose(file);
 
