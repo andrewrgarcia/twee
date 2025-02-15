@@ -45,7 +45,7 @@ void show_file_contents(char **files, int file_count, const Config *config) {
         }
         fclose(file);
 
-        printf("<<< FILE END: %s >>>\n\n", files[i]);
+        printf("\n<<< FILE END: %s >>>\n\n", files[i]);
 
     }
 }
