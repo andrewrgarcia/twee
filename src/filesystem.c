@@ -206,59 +206,57 @@ void list_directory(const char *base_path, int depth, const Config *config,
         stat(path, &path_stat);
 
         bool is_directory = S_ISDIR(path_stat.st_mode);
-
-        // Print indentation for tree mode
-        if (config->use_tree) {
-            for (int i = 0; i < depth; i++) printf("│   ");
-            printf("├── ");
-        }
-
-        // ✅ File extension coloring
-        const char *reset = "\033[0m";
         const char *ext = strrchr(entry->d_name, '.');
 
-        if (ext) {
-            if (!config->show_contents) {  // Apply color only when NOT using --show
-                printf("%s %.*s%s%s%s", 
-                    get_type_icon(entry->d_name, is_directory, config), 
-                    (int)(ext - entry->d_name), entry->d_name,  // Filename without extension
-                    EXT_COLOR, ext, reset  // Apply color only to extension
-                );
-            } else {
-                printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
-            }
-        } else {
-            printf("%s %s", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
-        }
 
-        // ✅ File details
-        if (config->show_details) {
-            time_t mod_time_raw = path_stat.st_mtime;
-            struct tm *mod_time = localtime(&mod_time_raw);
-            char time_str[20];
-            strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", mod_time);
-            printf(" [Size: %lld bytes] [Modified: %s]", (long long) path_stat.st_size, time_str);
-        }
-
-        printf("\n");
-
-        // ✅ Store file paths for later content display (if `--show` is enabled)
-        if (!is_directory && config->show_contents) {
-            bool should_show = (config->num_show_extensions == 0);  // Default to showing all if no filter is set
+        // Apply --show filter: Only list specified extensions
+        bool should_show = (config->num_show_extensions == 0);  // Default to all if no filter is set
+        if (!should_show) {
             for (int i = 0; i < config->num_show_extensions; i++) {
                 if (ext && strcmp(ext + 1, config->show_extensions[i]) == 0) {
                     should_show = true;
                     break;
                 }
             }
-            if (should_show) {
-                *files = realloc(*files, (*file_count + 1) * sizeof(char *));
-                (*files)[*file_count] = strdup(path);
-                (*file_count)++;
+        }
+
+        if (!should_show && !is_directory) continue;  // Skip files that don't match --show
+
+        // Flat format (./path/to/file.c)
+        if (!config->use_tree) {
+            if (is_directory) {
+                list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
+            } else {
+                printf("%s%s\n", get_type_icon(entry->d_name, is_directory, config),path);
+            }
+            continue;
+        }
+
+        // Tree format
+        for (int i = 0; i < depth; i++) printf("│   ");
+        printf("├── ");
+
+        if (config->use_index) {
+            printf("%s\n", entry->d_name);
+        } else {
+            if (config->show_details) {
+                time_t mod_time_raw = path_stat.st_mtime;
+                struct tm *mod_time = localtime(&mod_time_raw);
+                char time_str[20];
+                strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", mod_time);
+                printf("%s [Size: %lld bytes] [Modified: %s]\n", entry->d_name, (long long) path_stat.st_size, time_str);
+            } else {
+                printf("%s %s\n", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
             }
         }
 
-        // ✅ If it's a directory, recurse
+        // Store matching files for later content display
+        if (!is_directory && config->show_contents) {
+            *files = realloc(*files, (*file_count + 1) * sizeof(char *));
+            (*files)[*file_count] = strdup(path);
+            (*file_count)++;
+        }
+
         if (is_directory) {
             list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
         }

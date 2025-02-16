@@ -12,28 +12,35 @@ void print_help() {
     printf("  twee [options] [directory]\n\n");
 
     printf("Options:\n");
-    printf("  -h, --help          Show this help message and exit\n");
-    printf("  -L <level>          Limit directory depth to <level>\n");
-    printf("  --no-emoji          Disable emojis in output\n");
-    printf("  --details           Show file details (size, modified date)\n");
-    printf("  --ignore <name>     Ignore file/directory by name (space-separated)\n");
-    printf("  --no-git            Do not auto-ignore files listed in .gitignore\n");
-    printf("  --flat              Disable tree view (list as flat structure)\n");
-    printf("  --dif <dir1> <dir2> Compare directory structures (existence-only)\n");
-    printf("  --diff <dir1> <dir2> Compare directory structures AND file contents\n\n");
+    printf("  -h, --help            Show this help message and exit\n");
+    printf("  -L <level>            Limit directory depth to <level>\n");
+    printf("  --flat                Show full file paths AND tree format\n");
+    printf("  --no-emoji            Disable emojis in output\n");
+    printf("  --details             Show file details (size, modified date)\n");
+    printf("  --ignore <name> ...   Ignore file/directory by name (space-separated)\n");
+    printf("  --no-git              Do not auto-ignore files listed in .gitignore\n");
+    printf("  --show <ext1> ...     Show only specific file extensions (e.g., 'c h')\n");
+    printf("  --show ... --index    Show only filenames without tree formatting\n\n");
+    printf("  --dif <dir1> <dir2>   Compare directory structures (existence-only)\n");
+    printf("  --diff <dir1> <dir2>  Compare directory structures AND file contents\n\n");
 
     printf("Examples:\n");
-    printf("  twee                   # Show tree of current directory\n");
-    printf("  twee -L 2              # Limit depth to 2 levels\n");
-    printf("  twee --no-emoji        # Disable emoji icons\n");
+    printf("  twee                          # Show tree of current directory\n");
+    printf("  twee -L 2                     # Limit depth to 2 levels\n");
+    printf("  twee --flat                       # List files as './src/main.c' etc.\n");
+    printf("  twee --show c h               # Show only C and header files\n");
+    printf("  twee --show py --index        # Show the directory index and only py files\n");
+    printf("  twee --index                      # Only list file names\n");
+    printf("  twee --no-emoji                   # Disable emoji icons\n");
     printf("  twee --ignore node_modules build  # Ignore directories\n");
-    printf("  twee --dif dir1 dir2   # Show structure differences between dir1 and dir2\n");
-    printf("  twee --diff dir1 dir2  # Show full differences (structure + content)\n");
+    printf("  twee --dif dir1 dir2              # Show file existence differences between dir1 and dir2\n");
+    printf("  twee --diff dir1 dir2             # Show full differences (structure + content)\n");
 
     printf("--------------------------------------------------------\n");
     printf("🌟 Created by YOU | Open-source alternative to 'tree' and 'exa --tree'\n");
     printf("🔗 GitHub: \033[36mhttps://github.com/andrewrgarcia/twee\033[0m\n\n");
 }
+
 
 
 int main(int argc, char *argv[]) {
@@ -71,10 +78,21 @@ int main(int argc, char *argv[]) {
     char **files = NULL;
     int file_count = 0;
 
-    // ✅ First, list directories
-    list_directory(directory, 0, &config, ignore_patterns, ignore_count, &files, &file_count);
+    // ✅ First, print **flat structure** if `--flat` or `--show` is enabled
+    if (!config.use_tree || config.show_contents) {
+        config.use_tree = false;  // Force flat mode
+        list_directory(directory, 0, &config, ignore_patterns, ignore_count, &files, &file_count);
+        config.use_tree = true;   // Reset for tree mode
+        file_count = 0;  // Reset file count before tree listing
+        printf("\n");  // Spacing before tree view
+    }
 
-    // ✅ Then, print file contents separately (if `--show` is enabled)
+    // ✅ Then, print **tree view**
+    if (!config.use_index) {
+        list_directory(directory, 0, &config, ignore_patterns, ignore_count, &files, &file_count);
+    }
+
+    // ✅ Finally, print file contents if `--show` is enabled
     if (config.show_contents) {
         show_file_contents(files, file_count, &config);
     }

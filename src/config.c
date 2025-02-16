@@ -8,6 +8,7 @@ void init_config(Config *config) {
     config->show_details = false;
     config->use_gitignore = true;
     config->use_tree = true;
+    config->use_index = false;
     config->max_depth = -1;
     config->show_contents = false;
     config->head_lines = 0;
@@ -42,8 +43,10 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
             config->show_details = true;
         } else if (strcmp(argv[i], "--no-git") == 0) {
             config->use_gitignore = false;
-        } else if (strcmp(argv[i], "--flat") == 0) {
+        } else if (strcmp(argv[i], "--flat") == 0) {  // Changed meaning of `--flat`
             config->use_tree = false;
+        } else if (strcmp(argv[i], "--index") == 0) {
+            config->use_index = true;
         } else {
             *directory = argv[i];
         }
