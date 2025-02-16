@@ -3,6 +3,7 @@
 Twee is a fast and feature-rich alternative to `tree`, with **.gitignore awareness**, **file content preview (`--show`)**, and **built-in directory & file comparison (`--diff`)**. Unlike `exa --tree`, Twee **always** respects `.gitignore`, ensuring accurate directory views.
 
 The `--show` functionality in Twee is based on the efficient **"show" algorithm** from [`showfileshere`](https://github.com/andrewrgarcia/showfileshere), developed under the **MIT License** ([view license](https://github.com/andrewrgarcia/showfileshere/blob/main/LICENSE)).  
+
 https://github.com/user-attachments/assets/0720b9be-9588-472b-9391-9ba9768d7dbd
 
 ## 🚀 Features  
