@@ -14,6 +14,7 @@ Twee is a fast and feature-rich alternative to `tree`, with **.gitignore awarene
 | **Flat View (`--flat`)**                     | ✅ Yes | ❌ No | ❌ No |
 | **Written in C for Speed**                   | ✅ Yes | ❌ No | ❌ No |
 
+
 ---
 
 ## 📦 Installation  
