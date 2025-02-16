@@ -1,6 +1,6 @@
-# 🌳 Twee - A Tree Viewer for the GPT Era  
+# 🌳 Twee - A Tree Viewer for the AI Era  
 
-Twee is a fast and feature-rich alternative to `tree`, with **.gitignore awareness**, **file content preview (`--show`)**, and **built-in directory & file comparison (`--diff`)**. Unlike `exa --tree`, Twee **always** respects `.gitignore`, ensuring accurate directory views.
+Twee is a fast and feature-rich alternative to `tree`, with **.gitignore awareness**, **file content preview (`--show`)**, and **built-in directory & file comparison (`--diff`)**. Twee respects `.gitignore`, ensuring accurate directory views of what's important.
 
 The `--show` functionality in Twee is based on the efficient **"show" algorithm** from [`showfileshere`](https://github.com/andrewrgarcia/showfileshere), developed under the [MIT LICENSE](https://github.com/andrewrgarcia/showfileshere/blob/main/LICENSE)  
 
