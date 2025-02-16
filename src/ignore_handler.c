@@ -28,21 +28,28 @@ void load_gitignore(char ***ignore_patterns, int *ignore_count) {
     FILE *file = fopen(".gitignore", "r");
     if (!file) return;
 
-    *ignore_patterns = malloc(MAX_IGNORE_PATTERNS * sizeof(char *));
     char line[256];
-
-    while (fgets(line, sizeof(line), file) && *ignore_count < MAX_IGNORE_PATTERNS) {
-        trim_whitespace(line);  // Remove leading and trailing spaces
+    while (fgets(line, sizeof(line), file)) {
+        trim_whitespace(line);
 
         // Ignore empty lines and comment lines
         if (line[0] == '#' || strlen(line) == 0) continue;
 
-        // Handle wildcard `*` pattern correctly
-        if (strchr(line, '*')) {
-            // Add wildcard handling here if needed (basic support for now)
+        // Ensure enough space is allocated
+        if (*ignore_count >= MAX_IGNORE_PATTERNS) break;
+
+        *ignore_patterns = realloc(*ignore_patterns, (*ignore_count + 1) * sizeof(char *));
+        if (!*ignore_patterns) {
+            fclose(file);
+            return; // Memory allocation failed
         }
 
-        (*ignore_patterns)[(*ignore_count)++] = strdup(line);
+        (*ignore_patterns)[*ignore_count] = strdup(line);
+        if (!(*ignore_patterns)[*ignore_count]) {
+            fclose(file);
+            return; // Memory allocation failed
+        }
+        (*ignore_count)++;
     }
 
     fclose(file);

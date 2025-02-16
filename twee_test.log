@@ -1,0 +1,974 @@
+Running tests for twee...
+
+Running: ./build/twee
+📂 Listing directory: .
+├── 📄 LICENSE
+├── 📄 Makefile
+├── 📁 build
+├── 🖼 banner.png
+├── 📄 .gitignore
+├── 📜 README.md
+├── 📁 src
+│   ├── 📄 config.h
+│   ├── 📄 main.c
+│   ├── 📄 display.c
+│   ├── 📄 ignore_handler.c
+│   ├── 📄 filesystem.c
+│   ├── 📄 display.h
+│   ├── 📄 ignore_handler.h
+│   ├── 📄 config.c
+│   ├── 📄 filesystem.h
+├── 📄 twee_test.log
+├── 📁 tests
+│   ├── 📄 test_twee.sh
+│   ├── 📁 dir1
+│   │   ├── 🟨 config.json
+│   │   ├── 🐍 script.py
+│   │   ├── 📄 nice.txt
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 📄 new_helper.c
+│   ├── 📁 dir2
+│   │   ├── 🐍 web.py
+│   │   ├── 🦀 crab.rs
+│   │   ├── 🟨 config.json
+│   │   ├── 📄 new_feature.c
+│   │   ├── 📄 nice.txt
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 old_helper.c
+│   │   │   │   ├── 📄 helper.h
+
+Running: ./build/twee -L 0
+📂 Listing directory: .
+├── 📄 LICENSE
+├── 📄 Makefile
+├── 📁 build
+├── 🖼 banner.png
+├── 📄 .gitignore
+├── 📜 README.md
+├── 📁 src
+├── 📄 twee_test.log
+├── 📁 tests
+
+Running: ./build/twee --flat
+📂 Listing directory: .
+📄./LICENSE
+📄./Makefile
+🖼./banner.png
+📄./.gitignore
+📜./README.md
+📄./src/config.h
+📄./src/main.c
+📄./src/display.c
+📄./src/ignore_handler.c
+📄./src/filesystem.c
+📄./src/display.h
+📄./src/ignore_handler.h
+📄./src/config.c
+📄./src/filesystem.h
+📄./twee_test.log
+📄./tests/test_twee.sh
+🟨./tests/dir1/config.json
+🐍./tests/dir1/script.py
+📄./tests/dir1/nice.txt
+📄./tests/dir1/src/utils/helper.h
+📄./tests/dir1/src/utils/new_helper.c
+🐍./tests/dir2/web.py
+🦀./tests/dir2/crab.rs
+🟨./tests/dir2/config.json
+📄./tests/dir2/new_feature.c
+📄./tests/dir2/nice.txt
+📄./tests/dir2/src/utils/old_helper.c
+📄./tests/dir2/src/utils/helper.h
+
+├── 📄 LICENSE
+├── 📄 Makefile
+├── 📁 build
+├── 🖼 banner.png
+├── 📄 .gitignore
+├── 📜 README.md
+├── 📁 src
+│   ├── 📄 config.h
+│   ├── 📄 main.c
+│   ├── 📄 display.c
+│   ├── 📄 ignore_handler.c
+│   ├── 📄 filesystem.c
+│   ├── 📄 display.h
+│   ├── 📄 ignore_handler.h
+│   ├── 📄 config.c
+│   ├── 📄 filesystem.h
+├── 📄 twee_test.log
+├── 📁 tests
+│   ├── 📄 test_twee.sh
+│   ├── 📁 dir1
+│   │   ├── 🟨 config.json
+│   │   ├── 🐍 script.py
+│   │   ├── 📄 nice.txt
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 📄 new_helper.c
+│   ├── 📁 dir2
+│   │   ├── 🐍 web.py
+│   │   ├── 🦀 crab.rs
+│   │   ├── 🟨 config.json
+│   │   ├── 📄 new_feature.c
+│   │   ├── 📄 nice.txt
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 old_helper.c
+│   │   │   │   ├── 📄 helper.h
+
+Running: ./build/twee --show c h
+📂 Listing directory: .
+📄./src/config.h
+📄./src/main.c
+📄./src/display.c
+📄./src/ignore_handler.c
+📄./src/filesystem.c
+📄./src/display.h
+📄./src/ignore_handler.h
+📄./src/config.c
+📄./src/filesystem.h
+📄./tests/dir1/src/utils/helper.h
+📄./tests/dir1/src/utils/new_helper.c
+📄./tests/dir2/new_feature.c
+📄./tests/dir2/src/utils/old_helper.c
+📄./tests/dir2/src/utils/helper.h
+
+├── 📁 build
+├── 📁 src
+│   ├── 📄 config.h
+│   ├── 📄 main.c
+│   ├── 📄 display.c
+│   ├── 📄 ignore_handler.c
+│   ├── 📄 filesystem.c
+│   ├── 📄 display.h
+│   ├── 📄 ignore_handler.h
+│   ├── 📄 config.c
+│   ├── 📄 filesystem.h
+├── 📁 tests
+│   ├── 📁 dir1
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 📄 new_helper.c
+│   ├── 📁 dir2
+│   │   ├── 📄 new_feature.c
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 old_helper.c
+│   │   │   │   ├── 📄 helper.h
+
+===============================================
+
+<<< FILE START: ./src/config.h >>>
+#ifndef CONFIG_H
+#define CONFIG_H
+
+#include <stdbool.h>
+
+typedef struct {
+    bool use_emoji;
+    bool show_details;
+    bool use_gitignore;
+    bool use_tree;   
+    bool use_index;  // When true, format for index mode
+    int max_depth;
+    bool show_contents;
+    int head_lines;
+    int tail_lines;
+    char **show_extensions;  // Extensions allowed for `--show`
+    int num_show_extensions;
+} Config;
+
+void init_config(Config *config);
+void parse_arguments(int argc, char *argv[], Config *config, char **directory, char ***ignore_patterns, int *ignore_count);
+
+#endif
+
+<<< FILE END: ./src/config.h >>>
+
+<<< FILE START: ./src/main.c >>>
+#include "config.h"
+#include "filesystem.h"
+#include "ignore_handler.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void print_help() {
+    printf("📂 Twee - A modern tree viewer with file comparison 📂\n");
+    printf("--------------------------------------------------------\n");
+    printf("Usage:\n");
+    printf("  twee [options] [directory]\n\n");
+
+    printf("Options:\n");
+    printf("  -h, --help            Show this help message and exit\n");
+    printf("  -L <level>            Limit directory depth to <level>\n");
+    printf("  --flat                Show full file paths AND tree format\n");
+    printf("  --no-emoji            Disable emojis in output\n");
+    printf("  --details             Show file details (size, modified date)\n");
+    printf("  --ignore <name> ...   Ignore file/directory by name (space-separated)\n");
+    printf("  --no-git              Do not auto-ignore files listed in .gitignore\n");
+    printf("  --show <ext1> ...     Show only specific file extensions (e.g., 'c h')\n");
+    printf("  --show ... --index    Show only filenames without tree formatting\n\n");
+    printf("  --dif <dir1> <dir2>   Compare directory structures (existence-only)\n");
+    printf("  --diff <dir1> <dir2>  Compare directory structures AND file contents\n\n");
+
+    printf("Examples:\n");
+    printf("  twee                          # Show tree of current directory\n");
+    printf("  twee -L 2                     # Limit depth to 2 levels\n");
+    printf("  twee --flat                       # List files as './src/main.c' etc.\n");
+    printf("  twee --show c h               # Show only C and header files\n");
+    printf("  twee --show py --index        # Show the directory index and only py files\n");
+    printf("  twee --index                      # Only list file names\n");
+    printf("  twee --no-emoji                   # Disable emoji icons\n");
+    printf("  twee --ignore node_modules build  # Ignore directories\n");
+    printf("  twee --dif dir1 dir2              # Show file existence differences between dir1 and dir2\n");
+    printf("  twee --diff dir1 dir2             # Show full differences (structure + content)\n");
+
+    printf("--------------------------------------------------------\n");
+    printf("🌟 Created by YOU | Open-source alternative to 'tree' and 'exa --tree'\n");
+    printf("🔗 GitHub: \033[36mhttps://github.com/andrewrgarcia/twee\033[0m\n\n");
+}
+
+
+
+int main(int argc, char *argv[]) {
+    Config config;
+    init_config(&config);
+    
+    char *directory = ".";
+    char **ignore_patterns = NULL;
+    int ignore_count = 0;
+    
+    if (argc == 2 && (strcmp(argv[1], "--help") == 0 || strcmp(argv[1], "-h") == 0)) {
+        print_help();
+        return 0;
+    }
+
+    if (argc == 4 && strcmp(argv[1], "--dif") == 0) {
+        compare_structure(argv[2], argv[3], 0, false);  // Structure-only comparison
+        return 0;
+    }
+
+    if (argc == 4 && strcmp(argv[1], "--diff") == 0) {
+        compare_structure(argv[2], argv[3], 0, true);  // Full comparison including file contents
+        return 0;
+    }
+
+    parse_arguments(argc, argv, &config, &directory, &ignore_patterns, &ignore_count);
+
+    if (config.use_gitignore) {
+        load_gitignore(&ignore_patterns, &ignore_count);
+    }
+
+    printf("📂 Listing directory: %s\n", directory);
+
+    // ✅ Store file paths for later content display
+    char **files = NULL;
+    int file_count = 0;
+
+    // ✅ First, print **flat structure** if `--flat` or `--show` is enabled
+    if (!config.use_tree || config.show_contents) {
+        config.use_tree = false;  // Force flat mode
+        list_directory(directory, 0, &config, ignore_patterns, ignore_count, &files, &file_count);
+        config.use_tree = true;   // Reset for tree mode
+        file_count = 0;  // Reset file count before tree listing
+        printf("\n");  // Spacing before tree view
+    }
+
+    // ✅ Then, print **tree view**
+    if (!config.use_index) {
+        list_directory(directory, 0, &config, ignore_patterns, ignore_count, &files, &file_count);
+    }
+
+    // ✅ Finally, print file contents if `--show` is enabled
+    if (config.show_contents) {
+        show_file_contents(files, file_count, &config);
+    }
+
+    // ✅ Free dynamically allocated memory
+    for (int i = 0; i < ignore_count; i++) {
+        free(ignore_patterns[i]);
+    }
+    free(ignore_patterns);
+
+    for (int i = 0; i < file_count; i++) {
+        free(files[i]);
+    }
+    free(files);
+
+    return 0;
+}
+
+<<< FILE END: ./src/main.c >>>
+
+<<< FILE START: ./src/display.c >>>
+#include "display.h"
+#include <string.h>
+
+const char* get_type_icon(const char *filename, bool is_directory, const Config *config) {
+    if (!config->use_emoji) return "";
+
+    if (is_directory) return "📁";
+    if (strstr(filename, ".txt")) return "📄";
+    if (strstr(filename, ".py")) return "🐍";
+    if (strstr(filename, ".rs")) return "🦀";
+    if (strstr(filename, ".carbon")) return "⚛️";
+    if (strstr(filename, ".js") || strstr(filename, ".jsx")) return "🟨";
+    if (strstr(filename, ".ts") || strstr(filename, ".tsx")) return "🟦";
+    if (strstr(filename, ".html")) return "🟧";
+    if (strstr(filename, ".rb")) return "💎"; // Ruby
+    if (strstr(filename, ".cr")) return "💠"; // Crystal
+    if (strstr(filename, ".jl")) return "💅"; // Julia
+    if (strstr(filename, ".md")) return "📜";
+    if (strstr(filename, ".zip") || strstr(filename, ".tar") || strstr(filename, ".gz")) return "📦";
+    if (strstr(filename, ".jpg") || strstr(filename, ".png") || strstr(filename, ".svg")) return "🖼";
+    if (strstr(filename, ".mp4") || strstr(filename, ".mov")) return "🎥";
+    if (strstr(filename, ".mp3") || strstr(filename, ".wav")) return "🎵";
+    return "📄";
+}
+
+<<< FILE END: ./src/display.c >>>
+
+<<< FILE START: ./src/ignore_handler.c >>>
+#include "ignore_handler.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <ctype.h>
+
+#define MAX_IGNORE_PATTERNS 50
+
+// Function to trim leading and trailing spaces
+void trim_whitespace(char *str) {
+    char *end;
+
+    // Trim leading spaces
+    while (isspace((unsigned char)*str)) str++;
+
+    // If string is empty after trimming, return
+    if (*str == 0) return;
+
+    // Trim trailing spaces
+    end = str + strlen(str) - 1;
+    while (end > str && isspace((unsigned char)*end)) end--;
+
+    // Null-terminate the trimmed string
+    *(end + 1) = '\0';
+}
+
+void load_gitignore(char ***ignore_patterns, int *ignore_count) {
+    FILE *file = fopen(".gitignore", "r");
+    if (!file) return;
+
+    char line[256];
+    while (fgets(line, sizeof(line), file)) {
+        trim_whitespace(line);
+
+        // Ignore empty lines and comment lines
+        if (line[0] == '#' || strlen(line) == 0) continue;
+
+        // Ensure enough space is allocated
+        if (*ignore_count >= MAX_IGNORE_PATTERNS) break;
+
+        *ignore_patterns = realloc(*ignore_patterns, (*ignore_count + 1) * sizeof(char *));
+        if (!*ignore_patterns) {
+            fclose(file);
+            return; // Memory allocation failed
+        }
+
+        (*ignore_patterns)[*ignore_count] = strdup(line);
+        if (!(*ignore_patterns)[*ignore_count]) {
+            fclose(file);
+            return; // Memory allocation failed
+        }
+        (*ignore_count)++;
+    }
+
+    fclose(file);
+}
+
+
+bool ignore_match(const char *name, char **ignore_patterns, int ignore_count) {
+    for (int i = 0; i < ignore_count; i++) {
+        // Check if name matches an exact ignore pattern
+        if (strcmp(name, ignore_patterns[i]) == 0) return true;
+
+        // Handle patterns with `*` (wildcards)
+        if (strchr(ignore_patterns[i], '*')) {
+            if (strstr(name, ignore_patterns[i] + 1) != NULL) return true;
+        }
+    }
+    return false;
+}
+
+
+<<< FILE END: ./src/ignore_handler.c >>>
+
+<<< FILE START: ./src/filesystem.c >>>
+#include "filesystem.h"
+#include "display.h"
+#include "ignore_handler.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <dirent.h>
+#include <sys/stat.h>
+#include <string.h>
+#include <unistd.h>
+#include <time.h>
+#include <stdbool.h>
+
+#define EXT_COLOR "\033[38;2;221;45;97m" 
+#define MAX_LINES 2000
+
+void show_file_contents(char **files, int file_count, const Config *config) {
+    printf("\n===============================================\n\n");
+    for (int i = 0; i < file_count; i++) {
+        printf("<<< FILE START: %s >>>\n", files[i]);
+
+        FILE *file = fopen(files[i], "r");
+        if (!file) {
+            printf("❌ Error opening file: %s\n", files[i]);
+            continue;
+        }
+
+        char line[1024];
+        int line_num = 1;
+        int total_lines = 0;
+        int skip_lines = 0;
+        // Count total lines if tail is used
+        if (config->tail_lines > 0) {
+            while (fgets(line, sizeof(line), file)) total_lines++;
+            rewind(file);
+            skip_lines = total_lines - config->tail_lines;
+            if (skip_lines < 0) skip_lines = 0;
+        }
+
+        // Read and print file content based on head/tail constraints
+        while (fgets(line, sizeof(line), file)) {
+            if (config->tail_lines > 0 && line_num <= skip_lines) {
+                line_num++;
+                continue;
+            }
+            if (config->head_lines > 0 && line_num > config->head_lines) break;
+            if (line_num > MAX_LINES) {
+                printf("[Truncated at %d lines...]\n", MAX_LINES);
+                break;
+            }
+            printf("%s", line);
+            line_num++;
+        }
+        fclose(file);
+
+        printf("\n<<< FILE END: %s >>>\n\n", files[i]);
+
+    }
+}
+
+
+void compare_files(const char *file1, const char *file2, int depth) {
+    FILE *f1 = fopen(file1, "r");
+    FILE *f2 = fopen(file2, "r");
+
+    if (!f1 || !f2) {
+        perror("Error opening file");
+        return;
+    }
+
+    char line1[1024], line2[1024];
+    int line_num = 1;
+    int differences_found = 0;
+
+    printf("\n");  // 🔹 Ensure separation before file comparison output
+
+    while (1) {
+        char *res1 = fgets(line1, sizeof(line1), f1);
+        char *res2 = fgets(line2, sizeof(line2), f2);
+
+        if (!res1 && !res2) break;  // Both files ended
+
+        // 🔹 Print indentation aligned with tree
+        for (int i = 0; i < depth + 1; i++) printf("│   ");
+
+        if (!res1) {
+            printf("\033[32m+ Line %d: %s\033[0m", line_num, line2);  // Green (File 2 extra lines)
+            differences_found++;
+        } else if (!res2) {
+            printf("\033[31m- Line %d: %s\033[0m", line_num, line1);  // Red (File 1 extra lines)
+            differences_found++;
+        } else if (strcmp(line1, line2) != 0) {
+            printf("⚠️ Difference at line %d:\n", line_num);
+
+            for (int i = 0; i < depth + 2; i++) printf("│   ");  // Correctly indent line diffs
+            printf("\033[31m- %s\033[0m", line1);  // Red (removed line)
+
+            for (int i = 0; i < depth + 2; i++) printf("│   ");
+            printf("\033[32m+ %s\033[0m\n", line2);  // Green (added line)
+
+            differences_found++;
+        }
+        line_num++;
+    }
+
+    fclose(f1);
+    fclose(f2);
+
+    if (differences_found == 0) {
+        for (int i = 0; i < depth + 1; i++) printf("│   ");
+        printf("✅ No content differences found.\n");
+    }
+
+    printf("\n");  // 🔹 Ensure spacing before the next directory entry
+}
+
+void compare_structure(const char *path1, const char *path2, int depth, bool compare_contents) {
+    DIR *dir1 = opendir(path1);
+    DIR *dir2 = opendir(path2);
+
+    if (!dir1 || !dir2) {
+        perror("Error opening directories");
+        return;
+    }
+
+    struct dirent *entry;
+    struct stat stat1, stat2;
+
+    // 🔹 Scan through directory 1
+    while ((entry = readdir(dir1)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) continue;
+
+        char file1[1024], file2[1024];
+        snprintf(file1, sizeof(file1), "%s/%s", path1, entry->d_name);
+        snprintf(file2, sizeof(file2), "%s/%s", path2, entry->d_name);
+
+        if (stat(file1, &stat1) == 0) {
+            if (stat(file2, &stat2) != 0) {
+                for (int i = 0; i < depth; i++) printf("│   ");
+                printf("📂 Only in %s: %s\n", path1, entry->d_name);
+            } else if (S_ISREG(stat1.st_mode) && S_ISREG(stat2.st_mode)) {
+                if (stat1.st_size != stat2.st_size) {
+                    for (int i = 0; i < depth; i++) printf("│   ");
+                    printf("⚠️ Differing files: %s (size mismatch)\n", entry->d_name);
+                } 
+                // Only compare contents when `compare_contents == true`
+                if (compare_contents) {
+                    for (int i = 0; i < depth; i++) printf("│   ");
+                    printf("🔍 Comparing content of: %s\n", entry->d_name);
+                    
+                    compare_files(file1, file2, depth); 
+                }
+
+
+            } 
+            
+            // 🔹 Ensure directories are compared recursively
+            if (S_ISDIR(stat1.st_mode)) {
+                for (int i = 0; i < depth; i++) printf("│   ");
+                printf("📂 Entering directory: %s\n", entry->d_name);
+                compare_structure(file1, file2, depth + 1, compare_contents);
+            }
+        }
+    }
+    closedir(dir1);
+
+    // 🔹 Scan directory 2 for files missing in directory 1
+    while ((entry = readdir(dir2)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) continue;
+
+        char file1[1024], file2[1024];
+        snprintf(file1, sizeof(file1), "%s/%s", path1, entry->d_name);
+        snprintf(file2, sizeof(file2), "%s/%s", path2, entry->d_name);
+
+        if (stat(file1, &stat1) != 0) {  // File is missing in dir1
+            for (int i = 0; i < depth; i++) printf("│   ");
+            printf("📂 Only in %s: %s\n", path2, entry->d_name);
+        }
+    }
+    closedir(dir2);
+}
+
+void list_directory(const char *base_path, int depth, const Config *config, 
+                    char **ignore_patterns, int ignore_count, char ***files, int *file_count) {
+    if (config->max_depth >= 0 && depth > config->max_depth) return;
+
+    DIR *dir = opendir(base_path);
+    if (!dir) {
+        perror("Error opening directory");
+        return;
+    }
+
+    struct dirent *entry;
+    while ((entry = readdir(dir)) != NULL) {
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
+            continue;
+        }
+
+        if (ignore_match(entry->d_name, ignore_patterns, ignore_count)) {
+            continue;
+        }
+
+        char path[1024];
+        snprintf(path, sizeof(path), "%s/%s", base_path, entry->d_name);
+
+        struct stat path_stat;
+        stat(path, &path_stat);
+
+        bool is_directory = S_ISDIR(path_stat.st_mode);
+        const char *ext = strrchr(entry->d_name, '.');
+
+
+        // Apply --show filter: Only list specified extensions
+        bool should_show = (config->num_show_extensions == 0);  // Default to all if no filter is set
+        if (!should_show) {
+            for (int i = 0; i < config->num_show_extensions; i++) {
+                if (ext && strcmp(ext + 1, config->show_extensions[i]) == 0) {
+                    should_show = true;
+                    break;
+                }
+            }
+        }
+
+        if (!should_show && !is_directory) continue;  // Skip files that don't match --show
+
+        // Flat format (./path/to/file.c)
+        if (!config->use_tree) {
+            if (is_directory) {
+                list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
+            } else {
+                printf("%s%s\n", get_type_icon(entry->d_name, is_directory, config),path);
+            }
+            continue;
+        }
+
+        // Tree format
+        for (int i = 0; i < depth; i++) printf("│   ");
+        printf("├── ");
+
+        if (config->use_index) {
+            printf("%s\n", entry->d_name);
+        } else {
+            if (config->show_details) {
+                time_t mod_time_raw = path_stat.st_mtime;
+                struct tm *mod_time = localtime(&mod_time_raw);
+                char time_str[20];
+                strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", mod_time);
+                printf("%s [Size: %lld bytes] [Modified: %s]\n", entry->d_name, (long long) path_stat.st_size, time_str);
+            } else {
+                printf("%s %s\n", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
+            }
+        }
+
+        // Store matching files for later content display
+        if (!is_directory && config->show_contents) {
+            *files = realloc(*files, (*file_count + 1) * sizeof(char *));
+            (*files)[*file_count] = strdup(path);
+            (*file_count)++;
+        }
+
+        if (is_directory) {
+            list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
+        }
+    }
+    closedir(dir);
+}
+
+<<< FILE END: ./src/filesystem.c >>>
+
+<<< FILE START: ./src/display.h >>>
+#ifndef DISPLAY_H
+#define DISPLAY_H
+
+#include "config.h"
+
+const char* get_type_icon(const char *filename, bool is_directory, const Config *config);
+
+#endif
+
+<<< FILE END: ./src/display.h >>>
+
+<<< FILE START: ./src/ignore_handler.h >>>
+#ifndef IGNORE_HANDLER_H
+#define IGNORE_HANDLER_H
+
+#include <stdbool.h>
+
+void load_gitignore(char **ignore_patterns[], int *ignore_count);
+bool ignore_match(const char *name, char **ignore_patterns, int ignore_count);
+
+#endif
+
+<<< FILE END: ./src/ignore_handler.h >>>
+
+<<< FILE START: ./src/config.c >>>
+#include "config.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+void init_config(Config *config) {
+    config->use_emoji = true;
+    config->show_details = false;
+    config->use_gitignore = true;
+    config->use_tree = true;
+    config->use_index = false;
+    config->max_depth = -1;
+    config->show_contents = false;
+    config->head_lines = 0;
+    config->tail_lines = 0;
+    config->show_extensions = NULL;
+    config->num_show_extensions = 0;
+}
+
+void parse_arguments(int argc, char *argv[], Config *config, char **directory, char ***ignore_patterns, int *ignore_count) {
+    *ignore_patterns = malloc(10 * sizeof(char*));
+    config->show_extensions = malloc(10 * sizeof(char*));
+
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "-L") == 0 && i + 1 < argc) {
+            config->max_depth = atoi(argv[++i]);
+        } else if (strcmp(argv[i], "--ignore") == 0) {
+            while (i + 1 < argc && argv[i + 1][0] != '-') {
+                (*ignore_patterns)[(*ignore_count)++] = strdup(argv[++i]);
+            }
+        } else if (strcmp(argv[i], "--show") == 0) {
+            config->show_contents = true;
+            while (i + 1 < argc && argv[i + 1][0] != '-') {
+                config->show_extensions[config->num_show_extensions++] = strdup(argv[++i]);
+            }
+        } else if (strcmp(argv[i], "--head") == 0 && i + 1 < argc) {
+            config->head_lines = atoi(argv[++i]);
+        } else if (strcmp(argv[i], "--tail") == 0 && i + 1 < argc) {
+            config->tail_lines = atoi(argv[++i]);
+        } else if (strcmp(argv[i], "--no-emoji") == 0) {
+            config->use_emoji = false;
+        } else if (strcmp(argv[i], "--details") == 0) {
+            config->show_details = true;
+        } else if (strcmp(argv[i], "--no-git") == 0) {
+            config->use_gitignore = false;
+        } else if (strcmp(argv[i], "--flat") == 0) {  // Changed meaning of `--flat`
+            config->use_tree = false;
+        } else if (strcmp(argv[i], "--index") == 0) {
+            config->use_index = true;
+        } else {
+            *directory = argv[i];
+        }
+    }
+}
+
+<<< FILE END: ./src/config.c >>>
+
+<<< FILE START: ./src/filesystem.h >>>
+#ifndef FILESYSTEM_H
+#define FILESYSTEM_H
+
+#include "config.h"
+
+void list_directory(const char *base_path, int depth, const Config *config, 
+                    char **ignore_patterns, int ignore_count, char ***files, int *file_count);
+
+void compare_structure(const char *path1, const char *path2, int depth, bool compare_contents);
+void compare_files(const char *file1, const char *file2, int depth);
+void show_file_contents(char **files, int file_count, const Config *config);
+
+#endif
+
+<<< FILE END: ./src/filesystem.h >>>
+
+<<< FILE START: ./tests/dir1/src/utils/helper.h >>>
+Hello vorld
+Yoyoyoyoyo
+023ed12-34Hello world1-43rfc01345024--13-1!
+yeeeeeee
+
+:o
+<<< FILE END: ./tests/dir1/src/utils/helper.h >>>
+
+<<< FILE START: ./tests/dir1/src/utils/new_helper.c >>>
+
+<<< FILE END: ./tests/dir1/src/utils/new_helper.c >>>
+
+<<< FILE START: ./tests/dir2/new_feature.c >>>
+
+<<< FILE END: ./tests/dir2/new_feature.c >>>
+
+<<< FILE START: ./tests/dir2/src/utils/old_helper.c >>>
+
+<<< FILE END: ./tests/dir2/src/utils/old_helper.c >>>
+
+<<< FILE START: ./tests/dir2/src/utils/helper.h >>>
+Hello world
+<<< FILE END: ./tests/dir2/src/utils/helper.h >>>
+
+
+Running: ./build/twee --show py --index
+📂 Listing directory: .
+🐍./tests/dir1/script.py
+🐍./tests/dir2/web.py
+
+
+===============================================
+
+
+Running: ./build/twee --index
+📂 Listing directory: .
+
+Running: ./build/twee --no-emoji
+📂 Listing directory: .
+├──  LICENSE
+├──  Makefile
+├──  build
+├──  banner.png
+├──  .gitignore
+├──  README.md
+├──  src
+│   ├──  config.h
+│   ├──  main.c
+│   ├──  display.c
+│   ├──  ignore_handler.c
+│   ├──  filesystem.c
+│   ├──  display.h
+│   ├──  ignore_handler.h
+│   ├──  config.c
+│   ├──  filesystem.h
+├──  twee_test.log
+├──  tests
+│   ├──  test_twee.sh
+│   ├──  dir1
+│   │   ├──  config.json
+│   │   ├──  script.py
+│   │   ├──  nice.txt
+│   │   ├──  src
+│   │   │   ├──  utils
+│   │   │   │   ├──  helper.h
+│   │   │   │   ├──  new_helper.c
+│   ├──  dir2
+│   │   ├──  web.py
+│   │   ├──  crab.rs
+│   │   ├──  config.json
+│   │   ├──  new_feature.c
+│   │   ├──  nice.txt
+│   │   ├──  src
+│   │   │   ├──  utils
+│   │   │   │   ├──  old_helper.c
+│   │   │   │   ├──  helper.h
+
+Running: ./build/twee --no-git --ignore .git
+📂 Listing directory: .
+├── 📄 LICENSE
+├── 📄 Makefile
+├── 📁 build
+│   ├── 📄 main.o
+│   ├── 📄 filesystem.o
+│   ├── 📄 twee
+│   ├── 📄 display.o
+│   ├── 📄 ignore_handler.o
+│   ├── 📄 config.o
+├── 🖼 banner.png
+├── 📁 .vscode
+│   ├── 🟨 settings.json
+├── 📄 .gitignore
+├── 📜 README.md
+├── 📄 show.txt
+├── 📄 ShowFilesHere.sh
+├── 📁 src
+│   ├── 📄 config.h
+│   ├── 📄 main.o
+│   ├── 📄 main.c
+│   ├── 📄 filesystem.o
+│   ├── 📄 display.o
+│   ├── 📄 display.c
+│   ├── 📄 ignore_handler.o
+│   ├── 📄 ignore_handler.c
+│   ├── 📄 filesystem.c
+│   ├── 📄 display.h
+│   ├── 📄 ignore_handler.h
+│   ├── 📄 show.txt
+│   ├── 📄 ShowFilesHere.sh
+│   ├── 📄 config.c
+│   ├── 📄 filesystem.h
+│   ├── 📄 config.o
+├── 📄 twee_test.log
+├── 📁 tests
+│   ├── 📄 test_twee.sh
+│   ├── 📁 dir1
+│   │   ├── 🟨 config.json
+│   │   ├── 🐍 script.py
+│   │   ├── 📄 nice.txt
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 📄 new_helper.c
+│   ├── 📁 dir2
+│   │   ├── 🐍 web.py
+│   │   ├── 🦀 crab.rs
+│   │   ├── 🟨 config.json
+│   │   ├── 📄 new_feature.c
+│   │   ├── 📄 nice.txt
+│   │   ├── 📁 src
+│   │   │   ├── 📁 utils
+│   │   │   │   ├── 📄 old_helper.c
+│   │   │   │   ├── 📄 helper.h
+
+Running: ./build/twee --ignore tests build
+📂 Listing directory: .
+├── 📄 LICENSE
+├── 📄 Makefile
+├── 🖼 banner.png
+├── 📄 .gitignore
+├── 📜 README.md
+├── 📁 src
+│   ├── 📄 config.h
+│   ├── 📄 main.c
+│   ├── 📄 display.c
+│   ├── 📄 ignore_handler.c
+│   ├── 📄 filesystem.c
+│   ├── 📄 display.h
+│   ├── 📄 ignore_handler.h
+│   ├── 📄 config.c
+│   ├── 📄 filesystem.h
+├── 📄 twee_test.log
+
+Running: ./build/twee --dif tests/dir1 tests/dir2
+📂 Only in tests/dir1: script.py
+📂 Entering directory: src
+│   📂 Entering directory: utils
+│   │   ⚠️ Differing files: helper.h (size mismatch)
+│   │   📂 Only in tests/dir1/src/utils: new_helper.c
+│   │   📂 Only in tests/dir2/src/utils: old_helper.c
+📂 Only in tests/dir2: web.py
+📂 Only in tests/dir2: crab.rs
+📂 Only in tests/dir2: new_feature.c
+
+Running: ./build/twee --diff tests/dir1 tests/dir2
+🔍 Comparing content of: config.json
+
+│   ✅ No content differences found.
+
+📂 Only in tests/dir1: script.py
+🔍 Comparing content of: nice.txt
+
+│   ✅ No content differences found.
+
+📂 Entering directory: src
+│   📂 Entering directory: utils
+│   │   ⚠️ Differing files: helper.h (size mismatch)
+│   │   🔍 Comparing content of: helper.h
+
+│   │   │   ⚠️ Difference at line 1:
+│   │   │   │   [31m- Hello vorld
+[0m│   │   │   │   [32m+ Hello world[0m
+│   │   │   [31m- Line 2: Yoyoyoyoyo
+[0m│   │   │   [31m- Line 3: 023ed12-34Hello world1-43rfc01345024--13-1!
+[0m│   │   │   [31m- Line 4: yeeeeeee
+[0m│   │   │   [31m- Line 5: 
+[0m│   │   │   [31m- Line 6: :o[0m
+│   │   📂 Only in tests/dir1/src/utils: new_helper.c
+│   │   📂 Only in tests/dir2/src/utils: old_helper.c
+📂 Only in tests/dir2: web.py
+📂 Only in tests/dir2: crab.rs
+📂 Only in tests/dir2: new_feature.c
