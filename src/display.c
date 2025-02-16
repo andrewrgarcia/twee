@@ -8,6 +8,10 @@ const char* get_type_icon(const char *filename, bool is_directory, const Config 
     if (strstr(filename, ".txt")) return "📄";
     if (strstr(filename, ".py")) return "🐍";
     if (strstr(filename, ".rs")) return "🦀";
+    if (strstr(filename, ".c")) return "🅲";
+    if (strstr(filename, ".cpp")) return "🔷";
+    if (strstr(filename, ".h")) return "📜";
+    if (strstr(filename, ".hpp")) return "📜";
     if (strstr(filename, ".carbon")) return "⚛️";
     if (strstr(filename, ".js") || strstr(filename, ".jsx")) return "🟨";
     if (strstr(filename, ".ts") || strstr(filename, ".tsx")) return "🟦";
