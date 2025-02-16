@@ -14,7 +14,7 @@ https://github.com/user-attachments/assets/0720b9be-9588-472b-9391-9ba9768d7dbd
 | **File Size & Metadata (`--details`)**       | ✅ Yes | ❌ No | ✅ Yes |
 | **Gitignore Awareness (Always On)**          | ✅ Yes | ❌ No | ✅ Yes |
 | **File Differences (`--diff`)**              | ✅ Yes | ❌ No | ✅ Yes |
-| **File Content Preview (`--show`)**          | ✅ Yes *(AI-ready, quick insights, structured code extraction)* | ❌ No | ❌ No |
+| **File Content Preview (`--show`)**          | ✅ Yes [*(AI-ready code extraction)*](#ai-injection) | ❌ No | ❌ No |
 | **Flat View (`--flat`)**                     | ✅ Yes | ❌ No | ❌ No |
 | **Written in C for Speed**                   | ✅ Yes | ❌ No | ❌ No |
 
