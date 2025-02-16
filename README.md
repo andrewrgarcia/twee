@@ -112,9 +112,9 @@ twee --show py --head 10
 
 ---
 
-## AI Injection 📥🤖
+## AI Injection
 
-Twee's **file content preview (`--show`)** is an *underrated superpower*—it allows **structured extraction of codebases, configuration files, and entire directory snapshots** for use in **AI models, ChatGPT, and LLM-powered workflows**.  
+Twee's **file content preview (`--show`)** is an *underrated superpower*—it allows **structured extraction of codebases, configuration files, and entire directory snapshots** for use in **AI models, ChatGPT, and LLM-powered workflows** 📥🤖
 
 ### Use Cases: 
 ✅ Inject an entire codebase into an AI-powered assistant for **context-aware debugging & refactoring**  
