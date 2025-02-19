@@ -4,7 +4,8 @@ Twee is a fast and feature-rich alternative to `tree`, with **.gitignore awarene
 
 The `--show` functionality in Twee is based on the efficient **"show" algorithm** from [`showfileshere`](https://github.com/andrewrgarcia/showfileshere), developed under the [MIT LICENSE](https://github.com/andrewrgarcia/showfileshere/blob/main/LICENSE).
 
-https://github.com/user-attachments/assets/0720b9be-9588-472b-9391-9ba9768d7dbd
+https://github.com/user-attachments/assets/b054aec1-46f6-4644-9627-dc1d1a385757
+
 
 ## 🚀 Features
 
