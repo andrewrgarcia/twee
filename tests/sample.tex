@@ -1,0 +1,41 @@
+\documentclass[a4paper,12pt]{article}
+\usepackage{lipsum} % For filler text
+\usepackage{geometry}
+\usepackage{graphicx} % For figures
+\geometry{margin=1in}
+
+\begin{document}
+
+\title{Sample PDF Template}
+\author{John Doe}
+\date{\today}
+\maketitle
+
+\section{Introduction}
+\lipsum[1]
+
+\section{Main Content}
+\subsection{Subsection 1}
+\lipsum[2]
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{example-image}
+    \caption{Example Figure 1}
+    \label{fig:example1}
+\end{figure}
+
+\subsection{Subsection 2}
+\lipsum[3]
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=0.7\textwidth]{example-image}
+    \caption{Example Figure 2}
+    \label{fig:example2}
+\end{figure}
+
+\section{Conclusion}
+\lipsum[4]
+
+\end{document}

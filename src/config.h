@@ -8,13 +8,17 @@ typedef struct {
     bool show_details;
     bool use_gitignore;
     bool use_tree;   
-    bool use_index;  // When true, format for index mode
+    bool use_index;  
     int max_depth;
     bool show_contents;
     int head_lines;
     int tail_lines;
-    char **show_extensions;  // Extensions allowed for `--show`
+    char **show_extensions;
     int num_show_extensions;
+    bool show_pdfs;
+#ifdef ENABLE_PDF
+    bool pdf_enabled;
+#endif
 } Config;
 
 void init_config(Config *config);

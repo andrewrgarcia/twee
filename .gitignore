@@ -7,3 +7,8 @@ twee
 # show files 
 show.txt
 ShowFilesHere.sh
+
+# tex compiler
+*.aux 
+*.log
+

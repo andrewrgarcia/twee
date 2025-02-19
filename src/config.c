@@ -15,6 +15,11 @@ void init_config(Config *config) {
     config->tail_lines = 0;
     config->show_extensions = NULL;
     config->num_show_extensions = 0;
+    config->show_pdfs = false;
+
+#ifdef ENABLE_PDF
+    config->pdf_enabled = true;
+#endif
 }
 
 void parse_arguments(int argc, char *argv[], Config *config, char **directory, char ***ignore_patterns, int *ignore_count) {
@@ -22,7 +27,7 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
     config->show_extensions = malloc(10 * sizeof(char*));
 
     for (int i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "-L") == 0 && i + 1 < argc) {
+        if ((strcmp(argv[i], "-L") == 0 || strcmp(argv[i], "--level") == 0) && i + 1 < argc) {
             config->max_depth = atoi(argv[++i]);
         } else if (strcmp(argv[i], "--ignore") == 0) {
             while (i + 1 < argc && argv[i + 1][0] != '-') {
@@ -31,7 +36,9 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
         } else if (strcmp(argv[i], "--show") == 0) {
             config->show_contents = true;
             while (i + 1 < argc && argv[i + 1][0] != '-') {
-                config->show_extensions[config->num_show_extensions++] = strdup(argv[++i]);
+                char *ext = argv[++i];
+                config->show_extensions = realloc(config->show_extensions, (config->num_show_extensions + 1) * sizeof(char *));
+                config->show_extensions[config->num_show_extensions++] = strdup(ext);
             }
         } else if (strcmp(argv[i], "--head") == 0 && i + 1 < argc) {
             config->head_lines = atoi(argv[++i]);
@@ -43,7 +50,7 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
             config->show_details = true;
         } else if (strcmp(argv[i], "--no-git") == 0) {
             config->use_gitignore = false;
-        } else if (strcmp(argv[i], "--flat") == 0) {  // Changed meaning of `--flat`
+        } else if (strcmp(argv[i], "--flat") == 0) {
             config->use_tree = false;
         } else if (strcmp(argv[i], "--index") == 0) {
             config->use_index = true;

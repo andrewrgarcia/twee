@@ -9,17 +9,17 @@ Running: ./build/twee
 ├── 📄 .gitignore
 ├── 📜 README.md
 ├── 📁 src
-│   ├── 📄 config.h
-│   ├── 📄 main.c
-│   ├── 📄 display.c
-│   ├── 📄 ignore_handler.c
-│   ├── 📄 filesystem.c
-│   ├── 📄 display.h
-│   ├── 📄 ignore_handler.h
-│   ├── 📄 config.c
-│   ├── 📄 filesystem.h
-├── 📄 twee_test.log
+│   ├── 📜 config.h
+│   ├── 🅲 main.c
+│   ├── 🅲 display.c
+│   ├── 🅲 ignore_handler.c
+│   ├── 🅲 filesystem.c
+│   ├── 📜 display.h
+│   ├── 📜 ignore_handler.h
+│   ├── 🅲 config.c
+│   ├── 📜 filesystem.h
 ├── 📁 tests
+│   ├── 📕 sample.pdf
 │   ├── 📄 test_twee.sh
 │   ├── 📁 dir1
 │   │   ├── 🟨 config.json
@@ -27,18 +27,19 @@ Running: ./build/twee
 │   │   ├── 📄 nice.txt
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 helper.h
-│   │   │   │   ├── 📄 new_helper.c
+│   │   │   │   ├── 📜 helper.h
+│   │   │   │   ├── 🅲 new_helper.c
+│   ├── 📄 sample.tex
 │   ├── 📁 dir2
 │   │   ├── 🐍 web.py
 │   │   ├── 🦀 crab.rs
 │   │   ├── 🟨 config.json
-│   │   ├── 📄 new_feature.c
+│   │   ├── 🅲 new_feature.c
 │   │   ├── 📄 nice.txt
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 old_helper.c
-│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 🅲 old_helper.c
+│   │   │   │   ├── 📜 helper.h
 
 Running: ./build/twee -L 0
 📂 Listing directory: .
@@ -49,7 +50,6 @@ Running: ./build/twee -L 0
 ├── 📄 .gitignore
 ├── 📜 README.md
 ├── 📁 src
-├── 📄 twee_test.log
 ├── 📁 tests
 
 Running: ./build/twee --flat
@@ -59,29 +59,30 @@ Running: ./build/twee --flat
 🖼./banner.png
 📄./.gitignore
 📜./README.md
-📄./src/config.h
-📄./src/main.c
-📄./src/display.c
-📄./src/ignore_handler.c
-📄./src/filesystem.c
-📄./src/display.h
-📄./src/ignore_handler.h
-📄./src/config.c
-📄./src/filesystem.h
-📄./twee_test.log
+📜./src/config.h
+🅲./src/main.c
+🅲./src/display.c
+🅲./src/ignore_handler.c
+🅲./src/filesystem.c
+📜./src/display.h
+📜./src/ignore_handler.h
+🅲./src/config.c
+📜./src/filesystem.h
+📕./tests/sample.pdf
 📄./tests/test_twee.sh
 🟨./tests/dir1/config.json
 🐍./tests/dir1/script.py
 📄./tests/dir1/nice.txt
-📄./tests/dir1/src/utils/helper.h
-📄./tests/dir1/src/utils/new_helper.c
+📜./tests/dir1/src/utils/helper.h
+🅲./tests/dir1/src/utils/new_helper.c
+📄./tests/sample.tex
 🐍./tests/dir2/web.py
 🦀./tests/dir2/crab.rs
 🟨./tests/dir2/config.json
-📄./tests/dir2/new_feature.c
+🅲./tests/dir2/new_feature.c
 📄./tests/dir2/nice.txt
-📄./tests/dir2/src/utils/old_helper.c
-📄./tests/dir2/src/utils/helper.h
+🅲./tests/dir2/src/utils/old_helper.c
+📜./tests/dir2/src/utils/helper.h
 
 ├── 📄 LICENSE
 ├── 📄 Makefile
@@ -90,17 +91,17 @@ Running: ./build/twee --flat
 ├── 📄 .gitignore
 ├── 📜 README.md
 ├── 📁 src
-│   ├── 📄 config.h
-│   ├── 📄 main.c
-│   ├── 📄 display.c
-│   ├── 📄 ignore_handler.c
-│   ├── 📄 filesystem.c
-│   ├── 📄 display.h
-│   ├── 📄 ignore_handler.h
-│   ├── 📄 config.c
-│   ├── 📄 filesystem.h
-├── 📄 twee_test.log
+│   ├── 📜 config.h
+│   ├── 🅲 main.c
+│   ├── 🅲 display.c
+│   ├── 🅲 ignore_handler.c
+│   ├── 🅲 filesystem.c
+│   ├── 📜 display.h
+│   ├── 📜 ignore_handler.h
+│   ├── 🅲 config.c
+│   ├── 📜 filesystem.h
 ├── 📁 tests
+│   ├── 📕 sample.pdf
 │   ├── 📄 test_twee.sh
 │   ├── 📁 dir1
 │   │   ├── 🟨 config.json
@@ -108,59 +109,60 @@ Running: ./build/twee --flat
 │   │   ├── 📄 nice.txt
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 helper.h
-│   │   │   │   ├── 📄 new_helper.c
+│   │   │   │   ├── 📜 helper.h
+│   │   │   │   ├── 🅲 new_helper.c
+│   ├── 📄 sample.tex
 │   ├── 📁 dir2
 │   │   ├── 🐍 web.py
 │   │   ├── 🦀 crab.rs
 │   │   ├── 🟨 config.json
-│   │   ├── 📄 new_feature.c
+│   │   ├── 🅲 new_feature.c
 │   │   ├── 📄 nice.txt
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 old_helper.c
-│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 🅲 old_helper.c
+│   │   │   │   ├── 📜 helper.h
 
 Running: ./build/twee --show c h
 📂 Listing directory: .
-📄./src/config.h
-📄./src/main.c
-📄./src/display.c
-📄./src/ignore_handler.c
-📄./src/filesystem.c
-📄./src/display.h
-📄./src/ignore_handler.h
-📄./src/config.c
-📄./src/filesystem.h
-📄./tests/dir1/src/utils/helper.h
-📄./tests/dir1/src/utils/new_helper.c
-📄./tests/dir2/new_feature.c
-📄./tests/dir2/src/utils/old_helper.c
-📄./tests/dir2/src/utils/helper.h
+📜./src/config.h
+🅲./src/main.c
+🅲./src/display.c
+🅲./src/ignore_handler.c
+🅲./src/filesystem.c
+📜./src/display.h
+📜./src/ignore_handler.h
+🅲./src/config.c
+📜./src/filesystem.h
+📜./tests/dir1/src/utils/helper.h
+🅲./tests/dir1/src/utils/new_helper.c
+🅲./tests/dir2/new_feature.c
+🅲./tests/dir2/src/utils/old_helper.c
+📜./tests/dir2/src/utils/helper.h
 
 ├── 📁 build
 ├── 📁 src
-│   ├── 📄 config.h
-│   ├── 📄 main.c
-│   ├── 📄 display.c
-│   ├── 📄 ignore_handler.c
-│   ├── 📄 filesystem.c
-│   ├── 📄 display.h
-│   ├── 📄 ignore_handler.h
-│   ├── 📄 config.c
-│   ├── 📄 filesystem.h
+│   ├── 📜 config.h
+│   ├── 🅲 main.c
+│   ├── 🅲 display.c
+│   ├── 🅲 ignore_handler.c
+│   ├── 🅲 filesystem.c
+│   ├── 📜 display.h
+│   ├── 📜 ignore_handler.h
+│   ├── 🅲 config.c
+│   ├── 📜 filesystem.h
 ├── 📁 tests
 │   ├── 📁 dir1
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 helper.h
-│   │   │   │   ├── 📄 new_helper.c
+│   │   │   │   ├── 📜 helper.h
+│   │   │   │   ├── 🅲 new_helper.c
 │   ├── 📁 dir2
-│   │   ├── 📄 new_feature.c
+│   │   ├── 🅲 new_feature.c
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 old_helper.c
-│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 🅲 old_helper.c
+│   │   │   │   ├── 📜 helper.h
 
 ===============================================
 
@@ -175,13 +177,17 @@ typedef struct {
     bool show_details;
     bool use_gitignore;
     bool use_tree;   
-    bool use_index;  // When true, format for index mode
+    bool use_index;  
     int max_depth;
     bool show_contents;
     int head_lines;
     int tail_lines;
-    char **show_extensions;  // Extensions allowed for `--show`
+    char **show_extensions;
     int num_show_extensions;
+    bool show_pdfs;
+#ifdef ENABLE_PDF
+    bool pdf_enabled;
+#endif
 } Config;
 
 void init_config(Config *config);
@@ -316,8 +322,13 @@ const char* get_type_icon(const char *filename, bool is_directory, const Config 
 
     if (is_directory) return "📁";
     if (strstr(filename, ".txt")) return "📄";
+    if (strstr(filename, ".pdf")) return "📕";
     if (strstr(filename, ".py")) return "🐍";
     if (strstr(filename, ".rs")) return "🦀";
+    if (strstr(filename, ".c")) return "🅲";
+    if (strstr(filename, ".cpp")) return "🔷";
+    if (strstr(filename, ".h")) return "📜";
+    if (strstr(filename, ".hpp")) return "📜";
     if (strstr(filename, ".carbon")) return "⚛️";
     if (strstr(filename, ".js") || strstr(filename, ".jsx")) return "🟨";
     if (strstr(filename, ".ts") || strstr(filename, ".tsx")) return "🟦";
@@ -426,14 +437,79 @@ bool ignore_match(const char *name, char **ignore_patterns, int ignore_count) {
 #define EXT_COLOR "\033[38;2;221;45;97m" 
 #define MAX_LINES 2000
 
+#ifdef ENABLE_PDF
+#include <poppler/glib/poppler.h>
+#include <glib.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void show_pdf_content(const char *filename) {
+    GError *error = NULL;
+
+    // Convert relative path to absolute URI
+    gchar *absolute_path = realpath(filename, NULL);
+    if (!absolute_path) {
+        printf("❌ Error resolving file path: %s\n", filename);
+        return;
+    }
+
+    gchar *uri = g_strdup_printf("file://%s", absolute_path);
+    free(absolute_path);  // realpath() allocates memory, free it
+
+    PopplerDocument *doc = poppler_document_new_from_file(uri, NULL, &error);
+    g_free(uri);  // Free the dynamically allocated URI string
+
+    if (!doc) {
+        printf("❌ Error reading PDF: %s\n", error->message);
+        g_error_free(error);
+        return;
+    }
+
+    int num_pages = poppler_document_get_n_pages(doc);
+    printf("📕 PDF Content (%s):\n", filename);
+    
+    for (int i = 0; i < num_pages; i++) {
+        PopplerPage *page = poppler_document_get_page(doc, i);
+        char *text = poppler_page_get_text(page);  // ✅ Correct API usage
+        printf("%s\n", text);
+        g_free(text);
+        g_object_unref(page);
+    }
+
+    g_object_unref(doc);
+}
+#endif
+
+
 void show_file_contents(char **files, int file_count, const Config *config) {
     printf("\n===============================================\n\n");
     for (int i = 0; i < file_count; i++) {
-        printf("<<< FILE START: %s >>>\n", files[i]);
+        const char *filename = files[i];
+        const char *ext = strrchr(filename, '.');
 
-        FILE *file = fopen(files[i], "r");
+        if (!ext) continue;  // Skip files without extensions
+
+        // ✅ Check if file extension is allowed (including PDFs)
+        bool should_show = (config->num_show_extensions == 0);  // Show all if no filter
+        for (int j = 0; j < config->num_show_extensions; j++) {
+            if (strcmp(ext + 1, config->show_extensions[j]) == 0) {
+                should_show = true;
+                break;
+            }
+        }
+        if (!should_show) continue;  // Skip files not in `--show` filter
+
+#ifdef ENABLE_PDF
+        if (strcmp(ext, ".pdf") == 0) {
+            show_pdf_content(filename);  // Call PDF reader
+            continue;
+        }
+#endif
+
+        printf("<<< FILE START: %s >>>\n", filename);
+        FILE *file = fopen(filename, "r");
         if (!file) {
-            printf("❌ Error opening file: %s\n", files[i]);
+            printf("❌ Error opening file: %s\n", filename);
             continue;
         }
 
@@ -441,7 +517,6 @@ void show_file_contents(char **files, int file_count, const Config *config) {
         int line_num = 1;
         int total_lines = 0;
         int skip_lines = 0;
-        // Count total lines if tail is used
         if (config->tail_lines > 0) {
             while (fgets(line, sizeof(line), file)) total_lines++;
             rewind(file);
@@ -449,24 +524,18 @@ void show_file_contents(char **files, int file_count, const Config *config) {
             if (skip_lines < 0) skip_lines = 0;
         }
 
-        // Read and print file content based on head/tail constraints
         while (fgets(line, sizeof(line), file)) {
             if (config->tail_lines > 0 && line_num <= skip_lines) {
                 line_num++;
                 continue;
             }
             if (config->head_lines > 0 && line_num > config->head_lines) break;
-            if (line_num > MAX_LINES) {
-                printf("[Truncated at %d lines...]\n", MAX_LINES);
-                break;
-            }
             printf("%s", line);
             line_num++;
         }
         fclose(file);
 
-        printf("\n<<< FILE END: %s >>>\n\n", files[i]);
-
+        printf("\n<<< FILE END: %s >>>\n\n", filename);
     }
 }
 
@@ -722,6 +791,11 @@ void init_config(Config *config) {
     config->tail_lines = 0;
     config->show_extensions = NULL;
     config->num_show_extensions = 0;
+    config->show_pdfs = false;
+
+#ifdef ENABLE_PDF
+    config->pdf_enabled = true;
+#endif
 }
 
 void parse_arguments(int argc, char *argv[], Config *config, char **directory, char ***ignore_patterns, int *ignore_count) {
@@ -729,7 +803,7 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
     config->show_extensions = malloc(10 * sizeof(char*));
 
     for (int i = 1; i < argc; i++) {
-        if (strcmp(argv[i], "-L") == 0 && i + 1 < argc) {
+        if ((strcmp(argv[i], "-L") == 0 || strcmp(argv[i], "--level") == 0) && i + 1 < argc) {
             config->max_depth = atoi(argv[++i]);
         } else if (strcmp(argv[i], "--ignore") == 0) {
             while (i + 1 < argc && argv[i + 1][0] != '-') {
@@ -738,19 +812,17 @@ void parse_arguments(int argc, char *argv[], Config *config, char **directory, c
         } else if (strcmp(argv[i], "--show") == 0) {
             config->show_contents = true;
             while (i + 1 < argc && argv[i + 1][0] != '-') {
-                config->show_extensions[config->num_show_extensions++] = strdup(argv[++i]);
+                char *ext = argv[++i];
+                config->show_extensions = realloc(config->show_extensions, (config->num_show_extensions + 1) * sizeof(char *));
+                config->show_extensions[config->num_show_extensions++] = strdup(ext);
             }
-        } else if (strcmp(argv[i], "--head") == 0 && i + 1 < argc) {
-            config->head_lines = atoi(argv[++i]);
-        } else if (strcmp(argv[i], "--tail") == 0 && i + 1 < argc) {
-            config->tail_lines = atoi(argv[++i]);
         } else if (strcmp(argv[i], "--no-emoji") == 0) {
             config->use_emoji = false;
         } else if (strcmp(argv[i], "--details") == 0) {
             config->show_details = true;
         } else if (strcmp(argv[i], "--no-git") == 0) {
             config->use_gitignore = false;
-        } else if (strcmp(argv[i], "--flat") == 0) {  // Changed meaning of `--flat`
+        } else if (strcmp(argv[i], "--flat") == 0) {
             config->use_tree = false;
         } else if (strcmp(argv[i], "--index") == 0) {
             config->use_index = true;
@@ -835,8 +907,8 @@ Running: ./build/twee --no-emoji
 │   ├──  ignore_handler.h
 │   ├──  config.c
 │   ├──  filesystem.h
-├──  twee_test.log
 ├──  tests
+│   ├──  sample.pdf
 │   ├──  test_twee.sh
 │   ├──  dir1
 │   │   ├──  config.json
@@ -846,6 +918,7 @@ Running: ./build/twee --no-emoji
 │   │   │   ├──  utils
 │   │   │   │   ├──  helper.h
 │   │   │   │   ├──  new_helper.c
+│   ├──  sample.tex
 │   ├──  dir2
 │   │   ├──  web.py
 │   │   ├──  crab.rs
@@ -876,24 +949,26 @@ Running: ./build/twee --no-git --ignore .git
 ├── 📄 show.txt
 ├── 📄 ShowFilesHere.sh
 ├── 📁 src
-│   ├── 📄 config.h
+│   ├── 📜 config.h
 │   ├── 📄 main.o
-│   ├── 📄 main.c
+│   ├── 🅲 main.c
 │   ├── 📄 filesystem.o
 │   ├── 📄 display.o
-│   ├── 📄 display.c
+│   ├── 🅲 display.c
 │   ├── 📄 ignore_handler.o
-│   ├── 📄 ignore_handler.c
-│   ├── 📄 filesystem.c
-│   ├── 📄 display.h
-│   ├── 📄 ignore_handler.h
+│   ├── 🅲 ignore_handler.c
+│   ├── 🅲 filesystem.c
+│   ├── 📜 display.h
+│   ├── 📜 ignore_handler.h
 │   ├── 📄 show.txt
 │   ├── 📄 ShowFilesHere.sh
-│   ├── 📄 config.c
-│   ├── 📄 filesystem.h
+│   ├── 🅲 config.c
+│   ├── 📜 filesystem.h
 │   ├── 📄 config.o
 ├── 📄 twee_test.log
 ├── 📁 tests
+│   ├── 📕 sample.pdf
+│   ├── 📄 sample.aux
 │   ├── 📄 test_twee.sh
 │   ├── 📁 dir1
 │   │   ├── 🟨 config.json
@@ -901,18 +976,20 @@ Running: ./build/twee --no-git --ignore .git
 │   │   ├── 📄 nice.txt
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 helper.h
-│   │   │   │   ├── 📄 new_helper.c
+│   │   │   │   ├── 📜 helper.h
+│   │   │   │   ├── 🅲 new_helper.c
+│   ├── 📄 sample.tex
 │   ├── 📁 dir2
 │   │   ├── 🐍 web.py
 │   │   ├── 🦀 crab.rs
 │   │   ├── 🟨 config.json
-│   │   ├── 📄 new_feature.c
+│   │   ├── 🅲 new_feature.c
 │   │   ├── 📄 nice.txt
 │   │   ├── 📁 src
 │   │   │   ├── 📁 utils
-│   │   │   │   ├── 📄 old_helper.c
-│   │   │   │   ├── 📄 helper.h
+│   │   │   │   ├── 🅲 old_helper.c
+│   │   │   │   ├── 📜 helper.h
+│   ├── 📄 sample.log
 
 Running: ./build/twee --ignore tests build
 📂 Listing directory: .
@@ -922,16 +999,15 @@ Running: ./build/twee --ignore tests build
 ├── 📄 .gitignore
 ├── 📜 README.md
 ├── 📁 src
-│   ├── 📄 config.h
-│   ├── 📄 main.c
-│   ├── 📄 display.c
-│   ├── 📄 ignore_handler.c
-│   ├── 📄 filesystem.c
-│   ├── 📄 display.h
-│   ├── 📄 ignore_handler.h
-│   ├── 📄 config.c
-│   ├── 📄 filesystem.h
-├── 📄 twee_test.log
+│   ├── 📜 config.h
+│   ├── 🅲 main.c
+│   ├── 🅲 display.c
+│   ├── 🅲 ignore_handler.c
+│   ├── 🅲 filesystem.c
+│   ├── 📜 display.h
+│   ├── 📜 ignore_handler.h
+│   ├── 🅲 config.c
+│   ├── 📜 filesystem.h
 
 Running: ./build/twee --dif tests/dir1 tests/dir2
 📂 Only in tests/dir1: script.py

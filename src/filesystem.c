@@ -13,14 +13,79 @@
 #define EXT_COLOR "\033[38;2;221;45;97m" 
 #define MAX_LINES 2000
 
+#ifdef ENABLE_PDF
+#include <poppler/glib/poppler.h>
+#include <glib.h>
+#include <stdio.h>
+#include <stdlib.h>
+
+void show_pdf_content(const char *filename) {
+    GError *error = NULL;
+
+    // Convert relative path to absolute URI
+    gchar *absolute_path = realpath(filename, NULL);
+    if (!absolute_path) {
+        printf("❌ Error resolving file path: %s\n", filename);
+        return;
+    }
+
+    gchar *uri = g_strdup_printf("file://%s", absolute_path);
+    free(absolute_path);  // realpath() allocates memory, free it
+
+    PopplerDocument *doc = poppler_document_new_from_file(uri, NULL, &error);
+    g_free(uri);  // Free the dynamically allocated URI string
+
+    if (!doc) {
+        printf("❌ Error reading PDF: %s\n", error->message);
+        g_error_free(error);
+        return;
+    }
+
+    int num_pages = poppler_document_get_n_pages(doc);
+    printf("📕 PDF Content (%s):\n", filename);
+    
+    for (int i = 0; i < num_pages; i++) {
+        PopplerPage *page = poppler_document_get_page(doc, i);
+        char *text = poppler_page_get_text(page);  // ✅ Correct API usage
+        printf("%s\n", text);
+        g_free(text);
+        g_object_unref(page);
+    }
+
+    g_object_unref(doc);
+}
+#endif
+
+
 void show_file_contents(char **files, int file_count, const Config *config) {
     printf("\n===============================================\n\n");
     for (int i = 0; i < file_count; i++) {
-        printf("<<< FILE START: %s >>>\n", files[i]);
+        const char *filename = files[i];
+        const char *ext = strrchr(filename, '.');
 
-        FILE *file = fopen(files[i], "r");
+        if (!ext) continue;  // Skip files without extensions
+
+        // ✅ Check if file extension is allowed (including PDFs)
+        bool should_show = (config->num_show_extensions == 0);  // Show all if no filter
+        for (int j = 0; j < config->num_show_extensions; j++) {
+            if (strcmp(ext + 1, config->show_extensions[j]) == 0) {
+                should_show = true;
+                break;
+            }
+        }
+        if (!should_show) continue;  // Skip files not in `--show` filter
+
+#ifdef ENABLE_PDF
+        if (strcmp(ext, ".pdf") == 0) {
+            show_pdf_content(filename);  // Call PDF reader
+            continue;
+        }
+#endif
+
+        printf("<<< FILE START: %s >>>\n", filename);
+        FILE *file = fopen(filename, "r");
         if (!file) {
-            printf("❌ Error opening file: %s\n", files[i]);
+            printf("❌ Error opening file: %s\n", filename);
             continue;
         }
 
@@ -52,8 +117,7 @@ void show_file_contents(char **files, int file_count, const Config *config) {
         }
         fclose(file);
 
-        printf("\n<<< FILE END: %s >>>\n\n", files[i]);
-
+        printf("\n<<< FILE END: %s >>>\n\n", filename);
     }
 }
 

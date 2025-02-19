@@ -2,7 +2,7 @@
 CC = gcc
 
 # Compiler flags
-CFLAGS = -Wall -Wextra -g -Iinclude
+CFLAGS = -Wall -Wextra -g -Iinclude $(shell pkg-config --cflags glib-2.0)
 
 # Directories
 SRC_DIR = src
@@ -18,7 +18,7 @@ OBJS = $(patsubst $(SRC_DIR)/%.c, $(BUILD_DIR)/%.o, $(SRCS))
 # Executable name
 TARGET = $(BUILD_DIR)/twee
 
-# Default rule: Compile everything
+# Default rule: Compile without PDF support
 all: $(TARGET)
 
 # Link object files to create the final executable
@@ -30,6 +30,17 @@ $(TARGET): $(OBJS)
 $(BUILD_DIR)/%.o: $(SRC_DIR)/%.c
 	@mkdir -p $(BUILD_DIR)  # Ensure build/ exists
 	$(CC) $(CFLAGS) -c $< -o $@
+
+# Build with PDF support
+pdf: CFLAGS += -DENABLE_PDF
+pdf: CFLAGS += $(shell pkg-config --cflags poppler-glib glib-2.0)
+pdf: LDFLAGS += $(shell pkg-config --libs poppler-glib glib-2.0)
+pdf: clean $(TARGET)
+
+# Link correctly when building with PDF support
+$(TARGET): $(OBJS)
+	@mkdir -p $(BUILD_DIR)
+	$(CC) $(CFLAGS) $(OBJS) -o $(TARGET) $(LDFLAGS)
 
 # Clean compiled files
 clean:

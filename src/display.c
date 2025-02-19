@@ -6,6 +6,7 @@ const char* get_type_icon(const char *filename, bool is_directory, const Config 
 
     if (is_directory) return "📁";
     if (strstr(filename, ".txt")) return "📄";
+    if (strstr(filename, ".pdf")) return "📕";
     if (strstr(filename, ".py")) return "🐍";
     if (strstr(filename, ".rs")) return "🦀";
     if (strstr(filename, ".c")) return "🅲";
