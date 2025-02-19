@@ -42,6 +42,9 @@ _(Optionally move `twee.exe` to a location in your PATH.)_
 ---
 
 ## Optional PDF Support
+
+https://github.com/user-attachments/assets/1e5a4f86-6e18-4077-a1c5-f01188d8883d
+
 Twee supports **PDF text extraction** with `--show pdf`, but it is not built by default.  
 To enable **PDF reading**, install `poppler-glib` and build with the `pdf` target:
 
