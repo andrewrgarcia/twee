@@ -57,6 +57,11 @@ void load_gitignore(char ***ignore_patterns, int *ignore_count) {
 
 
 bool ignore_match(const char *name, char **ignore_patterns, int ignore_count) {
+    // Ignore hidden files and directories (starting with '.'), except .gitignore
+    if (name[0] == '.' && strcmp(name, ".gitignore") != 0) {
+        return true;
+    }
+
     for (int i = 0; i < ignore_count; i++) {
         // Check if name matches an exact ignore pattern
         if (strcmp(name, ignore_patterns[i]) == 0) return true;
