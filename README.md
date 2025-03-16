@@ -185,7 +185,7 @@ Twee isn't just a tree viewer—it’s a **developer’s productivity tool**:
 
 ## 📄 Citation
 If you use Twee in your research, please cite:
+
+> **Garcia, A. R.** (2025). *Twee: Lightweight Git-aware File Extraction for AI-driven Code Analysis*. Zenodo. [https://doi.org/10.5281/zenodo.15033378](https://doi.org/10.5281/zenodo.15033378)
+
 [![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15033378.svg)](https://doi.org/10.5281/zenodo.15033378)
-
-
-
