@@ -1,3 +1,5 @@
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15033378.svg)](https://doi.org/10.5281/zenodo.15033378)
+
 # 🌳 Twee - A Tree Viewer for the AI Era  
 
 Twee is a fast and feature-rich alternative to `tree`, with **.gitignore awareness**, **file content preview (`--show`)**, and **built-in directory & file comparison (`--diff`)**. Twee respects `.gitignore`, ensuring accurate directory views of what's important.
@@ -180,4 +182,10 @@ Twee isn't just a tree viewer—it’s a **developer’s productivity tool**:
 🔗 **GitHub Repository:** [github.com/andrewrgarcia/twee](https://github.com/andrewrgarcia/twee)  
 
 ✨ Star the repo if you like it! 🚀
+
+## 📄 Citation
+If you use Twee in your research, please cite:
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15033378.svg)](https://doi.org/10.5281/zenodo.15033378)
+
+
 
