@@ -23,6 +23,113 @@ https://github.com/user-attachments/assets/b054aec1-46f6-4644-9627-dc1d1a385757
 | **Written in C for Speed**                   | ✅ Yes | ❌ No | ❌ No |
 ---
 
+
+## 🌍 Global Usage
+
+To make `twee` available globally, add it to your shell configuration:
+
+### Linux/macOS (Add to `.bashrc` or `.zshrc`)
+```sh
+echo 'twee() { "$HOME/twee/build/twee" "$@"; }' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Windows (PowerShell)
+```powershell
+[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\\path\\to\\twee", [System.EnvironmentVariableTarget]::User)
+```
+
+---
+
+## 📚 Usage Guide
+
+```sh
+Usage: twee [options] [directory]
+
+Options:
+  -h, --help         Show this help message and exit
+  -L <level>         Limit directory depth to <level>
+  --no-emoji         Disable emojis in output
+  --details          Show file details (size, modified date)
+  --show [exts]      Show contents of files with given extensions (e.g., `py js md pdf`)
+  --ignore <name>    Ignore file/directory by name (can be used multiple times)
+  --only <dir>...    Limit view to only the specified directories
+                       Use +root to include top-level files (e.g. README.md)
+  --no-git           Do not auto-ignore files listed in .gitignore
+  --flat             Disable tree view (list as flat structure)
+  --head <N>         Show only first N lines per file (used with --show)
+  --tail <N>         Show only last N lines per file (used with --show)
+  --dif <dir1> <dir2>   Compare directory structures (existence-only)
+  --diff <dir1> <dir2>  Compare directory structures AND file contents  
+```
+
+
+---
+
+## AI Injection
+
+
+> **“Wow. That was an epic tale you just pasted into my mouth like a mom bird regurgitating a worm.”**
+> — *Your AI, after `twee --show > show.txt`*
+
+---
+
+
+Twee's **file content preview (`--show`)** is an *underrated superpower*; it allows **structured extraction of codebases, configuration files, and entire directory snapshots** for use in **AI models, ChatGPT, and LLM-powered workflows** 📥🤖
+
+### Use Cases:
+✅ Inject an entire codebase into an AI-powered assistant for **context-aware debugging & refactoring**  
+✅ Extract structured content for **automated documentation or static analysis**  
+✅ Feed large repositories into **fine-tuned models & embeddings** without copy-pasting  
+
+#### Example:
+```sh
+twee --show c h py > project_dump.txt
+```
+_(Feed `project_dump.txt` into ChatGPT or any LLM for deep analysis.)_
+
+---
+
+
+
+### 📝 Examples
+
+```sh
+# Show tree of current directory
+twee
+
+# Limit depth to 2 levels
+twee -L 2
+
+# Disable emoji icons
+twee --no-emoji
+
+# Ignore multiple directories
+twee --ignore node_modules build
+
+# Only show files inside 'src' and top-level root files
+twee --show --only src +root
+
+# Show C/JSON/Markdown files from specific subdir, plus top-level root files (+root)
+twee --show md c json --only tests/dir1 +root --index
+
+# Compare structures between two directories
+twee --dif dir1 dir2
+
+# Compare structures AND file contents
+twee --diff dir1 dir2
+
+# Show contents of all `.py` and `.rs` files
+twee --show py rs
+
+# Show contents of PDFs (if built with PDF support)
+twee --show pdf
+
+# Show contents but limit output to first 10 lines per file
+twee --show py --head 10
+```
+
+---
 ## 📦 Installation  
 
 ### Linux & macOS
@@ -80,101 +187,6 @@ twee --show pdf
 
 ---
 
-## 🌍 Global Usage
-
-To make `twee` available globally, add it to your shell configuration:
-
-### Linux/macOS (Add to `.bashrc` or `.zshrc`)
-```sh
-echo 'twee() { "$HOME/twee/build/twee" "$@"; }' >> ~/.bashrc
-source ~/.bashrc
-```
-
-### Windows (PowerShell)
-```powershell
-[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\\path\\to\\twee", [System.EnvironmentVariableTarget]::User)
-```
-
----
-
-## 📚 Usage Guide
-
-```sh
-Usage: twee [options] [directory]
-
-Options:
-  -h, --help         Show this help message and exit
-  -L <level>         Limit directory depth to <level>
-  --no-emoji         Disable emojis in output
-  --details          Show file details (size, modified date)
-  --show [exts]      Show contents of files with given extensions (e.g., `py js md pdf`)
-  --ignore <name>    Ignore file/directory by name (can be used multiple times)
-  --only <dir>...    Limit view to only the specified directories
-                       Use +root to include top-level files (e.g. README.md)
-  --no-git           Do not auto-ignore files listed in .gitignore
-  --flat             Disable tree view (list as flat structure)
-  --head <N>         Show only first N lines per file (used with --show)
-  --tail <N>         Show only last N lines per file (used with --show)
-  --dif <dir1> <dir2>   Compare directory structures (existence-only)
-  --diff <dir1> <dir2>  Compare directory structures AND file contents  
-```
-
----
-
-### 📝 Examples
-
-```sh
-# Show tree of current directory
-twee
-
-# Limit depth to 2 levels
-twee -L 2
-
-# Disable emoji icons
-twee --no-emoji
-
-# Ignore multiple directories
-twee --ignore node_modules build
-
-# Only show files inside 'src' and top-level root files
-twee --show --only src +root
-
-# Show C/JSON/Markdown files from specific subdir, plus top-level root files (+root)
-twee --show md c json --only tests/dir1 +root --index
-
-# Compare structures between two directories
-twee --dif dir1 dir2
-
-# Compare structures AND file contents
-twee --diff dir1 dir2
-
-# Show contents of all `.py` and `.rs` files
-twee --show py rs
-
-# Show contents of PDFs (if built with PDF support)
-twee --show pdf
-
-# Show contents but limit output to first 10 lines per file
-twee --show py --head 10
-```
-
----
-
-## AI Injection
-Twee's **file content preview (`--show`)** is an *underrated superpower*; it allows **structured extraction of codebases, configuration files, and entire directory snapshots** for use in **AI models, ChatGPT, and LLM-powered workflows** 📥🤖
-
-### Use Cases:
-✅ Inject an entire codebase into an AI-powered assistant for **context-aware debugging & refactoring**  
-✅ Extract structured content for **automated documentation or static analysis**  
-✅ Feed large repositories into **fine-tuned models & embeddings** without copy-pasting  
-
-#### Example:
-```sh
-twee --show c h py > project_dump.txt
-```
-_(Feed `project_dump.txt` into ChatGPT or any LLM for deep analysis.)_
-
----
 
 ## 🌟 **Why Twee?**
 Twee isn't just a tree viewer—it’s a **developer’s productivity tool**:  
