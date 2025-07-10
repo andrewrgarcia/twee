@@ -65,12 +65,17 @@ static bool should_include_path(const char *path, const Config *config) {
         clean_path = path + 2;
     }
 
-    // Check for root-level files if $root is enabled
+    // ✅ If no --only specified, allow everything
+    if (config->only_count == 0 && !config->include_root) {
+        return true;
+    }
+
+    // ✅ Allow root-level files if +root is enabled
     if (config->include_root && strchr(clean_path, '/') == NULL) {
         return true;
     }
 
-    // Match against --only dirs
+    // ✅ Match against --only dirs
     for (int i = 0; i < config->only_count; i++) {
         const char *only = config->only_dirs[i];
         size_t len = strlen(only);
@@ -297,6 +302,16 @@ void list_directory(const char *base_path, int depth, const Config *config,
         struct stat path_stat;
         stat(path, &path_stat);
 
+        // 🧠 Skip paths not included by --only
+        if (!should_include_path(path, config)) {
+            if (S_ISDIR(path_stat.st_mode)) {
+                continue;  // Skip subdirectory entirely
+            }
+            if (!S_ISDIR(path_stat.st_mode)) {
+                continue;  // Skip non-matching file
+            }
+        }
+
         bool is_directory = S_ISDIR(path_stat.st_mode);
         const char *ext = strrchr(entry->d_name, '.');
 
@@ -317,8 +332,7 @@ void list_directory(const char *base_path, int depth, const Config *config,
 
         // Flat format (./path/to/file.c)
         if (!config->use_tree) {
-            if (is_directory) {
-                // Always descend in flat mode
+            if (is_directory && should_include_path(path, config)) {
                 list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
             }
 
