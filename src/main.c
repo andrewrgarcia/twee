@@ -12,34 +12,38 @@ void print_help() {
     printf("  twee [options] [directory]\n\n");
 
     printf("Options:\n");
-    printf("  -h, --help            Show this help message and exit\n");
-    printf("  -L <level>            Limit directory depth to <level>\n");
-    printf("  --flat                Show full file paths AND tree format\n");
-    printf("  --no-emoji            Disable emojis in output\n");
-    printf("  --details             Show file details (size, modified date)\n");
-    printf("  --ignore <name> ...   Ignore file/directory by name (space-separated)\n");
-    printf("  --no-git              Do not auto-ignore files listed in .gitignore\n");
-    printf("  --show <ext1> ...     Show only specific file extensions (e.g., 'c h')\n");
-    printf("  --show ... --index    Show only filenames without tree formatting\n\n");
-    printf("  --dif <dir1> <dir2>   Compare directory structures (existence-only)\n");
-    printf("  --diff <dir1> <dir2>  Compare directory structures AND file contents\n\n");
+    printf("  -h, --help                Show this help message and exit\n");
+    printf("  -L <level>                Limit directory depth to <level>\n");
+    printf("  --flat                    Show full file paths AND tree format\n");
+    printf("  --no-emoji                Disable emojis in output\n");
+    printf("  --details                 Show file details (size, modified date)\n");
+    printf("  --no-git                  Do not auto-ignore files listed in .gitignore\n");
+    printf("  --show <ext1> ...         Show only specific file extensions (e.g., 'c h')\n");
+    printf("  --index                   Only show matching filenames (requires --show)\n");
+    printf("  --ignore <name>...        Ignore file/directory by name (requires --show)\n");
+    printf("  --only <dir>...           Limit view to specified directories (requires --show)\n");
+    printf("                            Use '+root' to include top-level files\n");
+    printf("  --dif <dir1> <dir2>       Compare directory structures (existence-only)\n");
+    printf("  --diff <dir1> <dir2>      Compare directory structures AND file contents\n\n");
 
     printf("Examples:\n");
     printf("  twee                          # Show tree of current directory\n");
     printf("  twee -L 2                     # Limit depth to 2 levels\n");
-    printf("  twee --flat                       # List files as './src/main.c' etc.\n");
+    printf("  twee --flat                   # List files as './src/main.c' etc.\n");
     printf("  twee --show c h               # Show only C and header files\n");
-    printf("  twee --show py --index        # Show the directory index and only py files\n");
-    printf("  twee --index                      # Only list file names\n");
+    printf("  twee --show py --index        # Show index view of Python files\n");
+    printf("  twee --show --index           # Only list file names\n");
+    printf("  twee --show --only src +root  # Only show src/ and root-level files\n");
     printf("  twee --no-emoji                   # Disable emoji icons\n");
-    printf("  twee --ignore node_modules build  # Ignore directories\n");
-    printf("  twee --dif dir1 dir2              # Show file existence differences between dir1 and dir2\n");
-    printf("  twee --diff dir1 dir2             # Show full differences (structure + content)\n");
+    printf("  twee --ignore node_modules    # Ignore specific directories\n");
+    printf("  twee --dif dir1 dir2          # Show file existence differences\n");
+    printf("  twee --diff dir1 dir2         # Show full content + structure diff\n");
 
     printf("--------------------------------------------------------\n");
     printf("🌟 Created by YOU | Open-source alternative to 'tree' and 'exa --tree'\n");
     printf("🔗 GitHub: \033[36mhttps://github.com/andrewrgarcia/twee\033[0m\n\n");
 }
+
 
 
 
@@ -107,6 +111,17 @@ int main(int argc, char *argv[]) {
         free(files[i]);
     }
     free(files);
+
+    for (int i = 0; i < config.num_show_extensions; i++) {
+        free(config.show_extensions[i]);
+    }
+    free(config.show_extensions);
+
+    for (int i = 0; i < config.only_count; i++) {
+        free(config.only_dirs[i]);
+    }
+    free(config.only_dirs);
+
 
     return 0;
 }

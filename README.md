@@ -107,14 +107,16 @@ Options:
   -L <level>         Limit directory depth to <level>
   --no-emoji         Disable emojis in output
   --details          Show file details (size, modified date)
+  --show [exts]      Show contents of files with given extensions (e.g., `py js md pdf`)
   --ignore <name>    Ignore file/directory by name (can be used multiple times)
+  --only <dir>...    Limit view to only the specified directories
+                       Use +root to include top-level files (e.g. README.md)
   --no-git           Do not auto-ignore files listed in .gitignore
   --flat             Disable tree view (list as flat structure)
-  --show [exts]      Show contents of files with given extensions (e.g., `py js md pdf`)
   --head <N>         Show only first N lines per file (used with --show)
   --tail <N>         Show only last N lines per file (used with --show)
   --dif <dir1> <dir2>   Compare directory structures (existence-only)
-  --diff <dir1> <dir2>  Compare directory structures AND file contents
+  --diff <dir1> <dir2>  Compare directory structures AND file contents  
 ```
 
 ---
@@ -132,7 +134,13 @@ twee -L 2
 twee --no-emoji
 
 # Ignore multiple directories
-twee --ignore node_modules --ignore build
+twee --ignore node_modules build
+
+# Only show files inside 'src' and top-level root files
+twee --show --only src +root
+
+# Show C/JSON/Markdown files from specific subdir, plus top-level root files (+root)
+twee --show md c json --only tests/dir1 +root --index
 
 # Compare structures between two directories
 twee --dif dir1 dir2

@@ -16,6 +16,9 @@ typedef struct {
     char **show_extensions;
     int num_show_extensions;
     bool show_pdfs;
+    char **only_dirs;
+    int only_count;
+    bool include_root;
 #ifdef ENABLE_PDF
     bool pdf_enabled;
 #endif

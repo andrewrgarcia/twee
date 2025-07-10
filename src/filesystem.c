@@ -56,6 +56,34 @@ void show_pdf_content(const char *filename) {
 }
 #endif
 
+#include <libgen.h>
+
+static bool should_include_path(const char *path, const Config *config) {
+    const char *clean_path = path;
+
+    if (strncmp(path, "./", 2) == 0) {
+        clean_path = path + 2;
+    }
+
+    // Check for root-level files if $root is enabled
+    if (config->include_root && strchr(clean_path, '/') == NULL) {
+        return true;
+    }
+
+    // Match against --only dirs
+    for (int i = 0; i < config->only_count; i++) {
+        const char *only = config->only_dirs[i];
+        size_t len = strlen(only);
+        if (strncmp(clean_path, only, len) == 0 &&
+            (clean_path[len] == '/' || clean_path[len] == '\0')) {
+            return true;
+        }
+    }
+
+    return false;
+}
+
+
 
 void show_file_contents(char **files, int file_count, const Config *config) {
     printf("\n===============================================\n\n");
@@ -272,6 +300,7 @@ void list_directory(const char *base_path, int depth, const Config *config,
         bool is_directory = S_ISDIR(path_stat.st_mode);
         const char *ext = strrchr(entry->d_name, '.');
 
+        bool is_included = should_include_path(path, config);
 
         // Apply --show filter: Only list specified extensions
         bool should_show = (config->num_show_extensions == 0);  // Default to all if no filter is set
@@ -289,12 +318,17 @@ void list_directory(const char *base_path, int depth, const Config *config,
         // Flat format (./path/to/file.c)
         if (!config->use_tree) {
             if (is_directory) {
+                // Always descend in flat mode
                 list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
-            } else {
-                printf("%s%s\n", get_type_icon(entry->d_name, is_directory, config),path);
             }
+
+            if (!is_directory && is_included) {
+                printf("%s%s\n", get_type_icon(entry->d_name, is_directory, config), path);
+            }
+
             continue;
         }
+
 
         // Tree format
         for (int i = 0; i < depth; i++) printf("│   ");
