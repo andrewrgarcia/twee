@@ -59,25 +59,28 @@ void show_pdf_content(const char *filename) {
 #include <libgen.h>
 
 static bool should_include_path(const char *path, const Config *config) {
-    const char *clean_path = path;
-
-    if (strncmp(path, "./", 2) == 0) {
-        clean_path = path + 2;
+    // Strip base path if it starts with './'
+    char clean_path[1024];
+    strncpy(clean_path, path, sizeof(clean_path));
+    if (strncmp(clean_path, "./", 2) == 0) {
+        memmove(clean_path, clean_path + 2, strlen(clean_path) - 1);
     }
 
-    // ✅ If no --only specified, allow everything
+
     if (config->only_count == 0 && !config->include_root) {
         return true;
     }
 
-    // ✅ Allow root-level files if +root is enabled
     if (config->include_root && strchr(clean_path, '/') == NULL) {
         return true;
     }
 
-    // ✅ Match against --only dirs
     for (int i = 0; i < config->only_count; i++) {
         const char *only = config->only_dirs[i];
+        if (strncmp(only, "./", 2) == 0) {
+            only += 2;
+        }
+
         size_t len = strlen(only);
         if (strncmp(clean_path, only, len) == 0 &&
             (clean_path[len] == '/' || clean_path[len] == '\0')) {
@@ -88,6 +91,24 @@ static bool should_include_path(const char *path, const Config *config) {
     return false;
 }
 
+
+bool path_could_contain_only(const char *dir_path, const Config *config) {
+    const char *clean_path = dir_path;
+    if (strncmp(clean_path, "./", 2) == 0) {
+        clean_path += 2;
+    }
+
+    for (int i = 0; i < config->only_count; i++) {
+        const char *only_path = config->only_dirs[i];
+        if (strncmp(only_path, clean_path, strlen(clean_path)) == 0 &&
+            only_path[strlen(clean_path)] == '/') {
+            return true;
+        }
+
+    }
+    
+    return false;
+}
 
 
 void show_file_contents(char **files, int file_count, const Config *config) {
@@ -288,37 +309,35 @@ void list_directory(const char *base_path, int depth, const Config *config,
 
     struct dirent *entry;
     while ((entry = readdir(dir)) != NULL) {
-        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) {
-            continue;
-        }
-
-        if (ignore_match(entry->d_name, ignore_patterns, ignore_count)) {
-            continue;
-        }
+        if (strcmp(entry->d_name, ".") == 0 || strcmp(entry->d_name, "..") == 0) continue;
+        if (ignore_match(entry->d_name, ignore_patterns, ignore_count)) continue;
 
         char path[1024];
         snprintf(path, sizeof(path), "%s/%s", base_path, entry->d_name);
 
+        char relative_path[1024];
+        if (strcmp(base_path, ".") == 0) {
+            snprintf(relative_path, sizeof(relative_path), "%s", entry->d_name);
+        } else {
+            snprintf(relative_path, sizeof(relative_path), "%s/%s", base_path, entry->d_name);
+        }
+
         struct stat path_stat;
         stat(path, &path_stat);
 
-        // 🧠 Skip paths not included by --only
-        if (!should_include_path(path, config)) {
-            if (S_ISDIR(path_stat.st_mode)) {
-                continue;  // Skip subdirectory entirely
-            }
-            if (!S_ISDIR(path_stat.st_mode)) {
-                continue;  // Skip non-matching file
-            }
-        }
-
         bool is_directory = S_ISDIR(path_stat.st_mode);
+        bool is_match = should_include_path(relative_path, config);
+        bool can_contain = is_directory && path_could_contain_only(relative_path, config);
+
+        // --- KEY CHANGE ---
+        // Only skip entirely if neither match nor could contain:
+        if (!is_match && !can_contain && !(!is_directory && config->show_contents)) continue;
+        // ------------------
+
         const char *ext = strrchr(entry->d_name, '.');
 
-        bool is_included = should_include_path(path, config);
-
-        // Apply --show filter: Only list specified extensions
-        bool should_show = (config->num_show_extensions == 0);  // Default to all if no filter is set
+        // Apply --show filter to files
+        bool should_show = (config->num_show_extensions == 0);
         if (!should_show) {
             for (int i = 0; i < config->num_show_extensions; i++) {
                 if (ext && strcmp(ext + 1, config->show_extensions[i]) == 0) {
@@ -327,49 +346,47 @@ void list_directory(const char *base_path, int depth, const Config *config,
                 }
             }
         }
+        if (!should_show && !is_directory) continue;
 
-        if (!should_show && !is_directory) continue;  // Skip files that don't match --show
-
-        // Flat format (./path/to/file.c)
+        // Print or collect (flat/tree logic)
         if (!config->use_tree) {
-            if (is_directory && should_include_path(path, config)) {
-                list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
-            }
-
-            if (!is_directory && is_included) {
+            if (!is_directory && is_match) {
                 printf("%s%s\n", get_type_icon(entry->d_name, is_directory, config), path);
             }
-
+            if (is_directory && (is_match || can_contain)) {
+                // Always descend if we could hit a deeper --only!
+                list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
+            }
             continue;
         }
 
-
-        // Tree format
-        for (int i = 0; i < depth; i++) printf("│   ");
-        printf("├── ");
-
-        if (config->use_index) {
-            printf("%s\n", entry->d_name);
-        } else {
-            if (config->show_details) {
-                time_t mod_time_raw = path_stat.st_mtime;
-                struct tm *mod_time = localtime(&mod_time_raw);
-                char time_str[20];
-                strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", mod_time);
-                printf("%s [Size: %lld bytes] [Modified: %s]\n", entry->d_name, (long long) path_stat.st_size, time_str);
+        // --- Tree printing ---
+        if (is_match || (!is_directory && is_match)) {
+            for (int i = 0; i < depth; i++) printf("│   ");
+            printf("├── ");
+            if (config->use_index) {
+                printf("%s\n", entry->d_name);
             } else {
-                printf("%s %s\n", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
+                if (config->show_details) {
+                    time_t mod_time_raw = path_stat.st_mtime;
+                    struct tm *mod_time = localtime(&mod_time_raw);
+                    char time_str[20];
+                    strftime(time_str, sizeof(time_str), "%Y-%m-%d %H:%M:%S", mod_time);
+                    printf("%s [Size: %lld bytes] [Modified: %s]\n", entry->d_name, (long long) path_stat.st_size, time_str);
+                } else {
+                    printf("%s %s\n", get_type_icon(entry->d_name, is_directory, config), entry->d_name);
+                }
             }
         }
 
-        // Store matching files for later content display
-        if (!is_directory && config->show_contents) {
+        if (!is_directory && config->show_contents && is_match) {
             *files = realloc(*files, (*file_count + 1) * sizeof(char *));
             (*files)[*file_count] = strdup(path);
             (*file_count)++;
         }
 
-        if (is_directory) {
+        if (is_directory && (is_match || can_contain)) {
+            // Always descend if possibly deeper matches
             list_directory(path, depth + 1, config, ignore_patterns, ignore_count, files, file_count);
         }
     }
