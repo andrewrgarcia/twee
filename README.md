@@ -9,6 +9,30 @@ The `--show` functionality in Twee is based on the efficient **"show" algorithm*
 https://github.com/user-attachments/assets/b054aec1-46f6-4644-9627-dc1d1a385757
 
 
+## AI Injection
+
+
+> **“Wow. That was an epic tale you just pasted into my mouth like a mom bird regurgitating a worm.”**
+> — *Your AI, after `twee --show > show.txt`*
+
+---
+
+
+Twee's **file content preview (`--show`)** is an *underrated superpower*; it allows **structured extraction of codebases, configuration files, and entire directory snapshots** for use in **AI models, ChatGPT, and LLM-powered workflows** 📥🤖
+
+### Use Cases:
+✅ Inject an entire codebase into an AI-powered assistant for **context-aware debugging & refactoring**  
+✅ Extract structured content for **automated documentation or static analysis**  
+✅ Feed large repositories into **fine-tuned models & embeddings** without copy-pasting  
+
+#### Example:
+```sh
+twee --show c h py > project_dump.txt
+```
+_(Feed `project_dump.txt` into ChatGPT or any LLM for deep analysis.)_
+
+---
+
 ## 🚀 Features
 
 | Feature                                      | `twee` | `tree` | `eza --tree` |
@@ -21,24 +45,6 @@ https://github.com/user-attachments/assets/b054aec1-46f6-4644-9627-dc1d1a385757
 | **PDF Text Extraction (`--show pdf`)**       | ✅ [*(Optional)*](#optional-pdf-support) | ❌ No | ❌ No |
 | **Flat View (`--flat`)**                     | ✅ Yes | ❌ No | ❌ No |
 | **Written in C for Speed**                   | ✅ Yes | ❌ No | ❌ No |
----
-
-
-## 🌍 Global Usage
-
-To make `twee` available globally, add it to your shell configuration:
-
-### Linux/macOS (Add to `.bashrc` or `.zshrc`)
-```sh
-echo 'twee() { "$HOME/twee/build/twee" "$@"; }' >> ~/.bashrc
-source ~/.bashrc
-```
-
-### Windows (PowerShell)
-```powershell
-[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\\path\\to\\twee", [System.EnvironmentVariableTarget]::User)
-```
-
 ---
 
 ## 📚 Usage Guide
@@ -66,29 +72,6 @@ Options:
 
 ---
 
-## AI Injection
-
-
-> **“Wow. That was an epic tale you just pasted into my mouth like a mom bird regurgitating a worm.”**
-> — *Your AI, after `twee --show > show.txt`*
-
----
-
-
-Twee's **file content preview (`--show`)** is an *underrated superpower*; it allows **structured extraction of codebases, configuration files, and entire directory snapshots** for use in **AI models, ChatGPT, and LLM-powered workflows** 📥🤖
-
-### Use Cases:
-✅ Inject an entire codebase into an AI-powered assistant for **context-aware debugging & refactoring**  
-✅ Extract structured content for **automated documentation or static analysis**  
-✅ Feed large repositories into **fine-tuned models & embeddings** without copy-pasting  
-
-#### Example:
-```sh
-twee --show c h py > project_dump.txt
-```
-_(Feed `project_dump.txt` into ChatGPT or any LLM for deep analysis.)_
-
----
 
 
 
@@ -183,6 +166,23 @@ make pdf
 Now, Twee can **extract text from PDFs** using:
 ```sh
 twee --show pdf
+```
+
+---
+
+## 🌍 Global Usage
+
+To make `twee` available globally, add it to your shell configuration:
+
+### Linux/macOS (Add to `.bashrc` or `.zshrc`)
+```sh
+echo 'twee() { "$HOME/twee/build/twee" "$@"; }' >> ~/.bashrc
+source ~/.bashrc
+```
+
+### Windows (PowerShell)
+```powershell
+[System.Environment]::SetEnvironmentVariable("Path", $Env:Path + ";C:\\path\\to\\twee", [System.EnvironmentVariableTarget]::User)
 ```
 
 ---
