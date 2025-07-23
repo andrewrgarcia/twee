@@ -38,6 +38,7 @@ const char* get_type_icon(const char *filename, bool is_directory, const Config 
     if (strcmp(ext, ".cr") == 0) return "💠"; // Crystal
     if (strcmp(ext, ".jl") == 0) return "💅"; // Julia
     if (strcmp(ext, ".md") == 0) return "📜";
+    if (strcmp(ext, ".aesus") == 0) return "🧿"; // https://crates.io/crates/aesus
     if (strcmp(ext, ".zip") == 0 || strcmp(ext, ".tar") == 0 || strcmp(ext, ".gz") == 0) return "📦";
     if (strcmp(ext, ".jpg") == 0 || strcmp(ext, ".jpeg") == 0 || strcmp(ext, ".png") == 0 ||
         strcmp(ext, ".svg") == 0 || strcmp(ext, ".gif") == 0 || strcmp(ext, ".bmp") == 0 ||
