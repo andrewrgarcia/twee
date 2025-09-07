@@ -1,4 +1,10 @@
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15033378.svg)](https://doi.org/10.5281/zenodo.15033378)
+[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.15033378.svg)](https://doi.org/10.5281/zenodo.15033378)  
+[![Project Status: Moved](https://img.shields.io/badge/status-moved-blue)](https://github.com/andrewrgarcia/yggdrasil-cli)
+
+> ⚠️ **Project Status: Evolved**  
+> Twee was my original C prototype. The project has now **moved and evolved** into  
+> [🌳 Yggdrasil CLI](https://github.com/andrewrgarcia/yggdrasil-cli) — a Rust re-imagining with more features, Markdown codex mode, and active updates.  
+> Twee remains here for historical and citation purposes (see DOI above).
 
 # 🌳 Twee - A Tree Viewer for the AI Era  
 
